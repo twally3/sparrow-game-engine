@@ -2,6 +2,7 @@ import simd
 
 enum CameraTypes {
     case Debug
+    case FPSQuaternion
 }
 
 class Camera: Node {
@@ -18,6 +19,27 @@ class Camera: Node {
     
     var projectionMatrix: matrix_float4x4 {
         return matrix_identity_float4x4
+    }
+    
+    var pitch: Float {
+        get { return self.getRotationX() }
+        set(x) {
+            var xRotation = x
+            if xRotation > Float.pi / 2 || xRotation < -Float.pi / 2 {
+                xRotation = (Float.pi / 2 + 0.001) * sign(xRotation)
+            }
+            self.setRotationX(xRotation)
+        }
+    }
+    
+    var yaw: Float {
+        get { return self.getRotationY() }
+        set(x) { self.setRotationY(x) }
+    }
+    
+    var roll: Float {
+        get { return self.getRotationZ() }
+        set(x) { self.setRotationZ(x) }
     }
     
     init(name: String, cameraType: CameraTypes) {

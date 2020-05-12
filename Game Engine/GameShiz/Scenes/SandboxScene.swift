@@ -1,5 +1,5 @@
 class SandboxScene: Scene {
-    let camera = DebugCamera()
+    let camera = FPSCameraQuaternion()
     let chest = Chest()
     let sun = Sun()
     
