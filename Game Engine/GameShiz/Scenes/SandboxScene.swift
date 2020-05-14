@@ -1,9 +1,8 @@
 class SandboxScene: Scene {
-    let camera = FPSCameraQuaternion()
     
     override func buildScene() {
-        camera.setPosition(0, 0, 3)
-        addCamera(camera)
+//        camera.setPosition(0, 0, 3)
+//        addCamera(camera)
         
         do {
             let cube = engine.createEntity()
@@ -48,6 +47,12 @@ class SandboxScene: Scene {
             try sun.add(component: RenderComponent(isLit: false, colour: SIMD4<Float>(1, 1, 1, 1), mesh: Entities.meshes[.Sphere]))
             
             try engine.addEntity(entity: sun)
+            
+            let camera = engine.createEntity()
+            try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 0, 3)))
+            try camera.add(component: CameraComponent())
+            try engine.addEntity(entity: camera)
+            
         } catch let error {
             fatalError("\(error)")
         }

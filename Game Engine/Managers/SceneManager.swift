@@ -13,6 +13,7 @@ class SceneManager {
         setScene(sceneType: sceneType)
         
         do {
+            try engine.addSystem(system: CameraSystem(priority: 0))
             try engine.addSystem(system: LightSystem(priority: 0))
             try engine.addSystem(system: RenderSystem(priority: 0))
             try engine.addSystem(system: InstancedRenderSystem(priority: 0))
@@ -31,7 +32,7 @@ class SceneManager {
     
     public static func tickScene(renderCommandEncoder: MTLRenderCommandEncoder, deltaTime: Float) {
         GameTime.updateTime(deltaTime)
-        _currentScene.updateCameras()
+        
         _currentScene.update(deltaTime: deltaTime)
         _currentScene.render(renderCommandEncoder: renderCommandEncoder)
     }
