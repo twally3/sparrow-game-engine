@@ -2,7 +2,6 @@ import MetalKit
 
 class Scene {
     private var _cameraManager = CameraManager()
-    private var _lightManager = LightManager()
     private var _sceneConstants = SceneConstants()
     
     internal var engine: ECS

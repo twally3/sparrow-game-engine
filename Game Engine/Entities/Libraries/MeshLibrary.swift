@@ -124,14 +124,24 @@ class Mesh {
             
             if _submeshes.count > 0 {
                 for submesh in _submeshes {
-                    submesh.applyTextures(renderCommandEncoder: renderCommandEncoder, customBaseColourTextureType: baseColourTextureType)
+                    submesh.applyTextures(renderCommandEncoder: renderCommandEncoder,
+                                          customBaseColourTextureType: baseColourTextureType)
                     submesh.applyMaterials(renderCommandEncoder: renderCommandEncoder, customMaterial: material)
                     
-                    renderCommandEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
-                                                               indexCount: submesh.indexCount,
-                                                               indexType: submesh.indexType,
-                                                               indexBuffer: submesh.indexBuffer,
-                                                               indexBufferOffset: submesh.indexBufferOffset)
+                    if _instanceCount == 1 {
+                        renderCommandEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
+                                                                   indexCount: submesh.indexCount,
+                                                                   indexType: submesh.indexType,
+                                                                   indexBuffer: submesh.indexBuffer,
+                                                                   indexBufferOffset: submesh.indexBufferOffset)
+                    } else {
+                        renderCommandEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
+                                                                   indexCount: submesh.indexCount,
+                                                                   indexType: submesh.indexType,
+                                                                   indexBuffer: submesh.indexBuffer,
+                                                                   indexBufferOffset: submesh.indexBufferOffset,
+                                                                   instanceCount: _instanceCount)
+                    }
                 }
             } else {
                 renderCommandEncoder.drawPrimitives(type: .triangle,

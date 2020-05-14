@@ -15,6 +15,7 @@ class SceneManager {
         do {
             try engine.addSystem(system: LightSystem(priority: 0))
             try engine.addSystem(system: RenderSystem(priority: 0))
+            try engine.addSystem(system: InstancedRenderSystem(priority: 0))
             try engine.addSystem(system: RotationSystem(priority: 1))
         } catch let error {
             fatalError("\(error)")

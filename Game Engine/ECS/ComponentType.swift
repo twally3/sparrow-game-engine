@@ -1,6 +1,6 @@
 class ComponentType {
     private static var assignedComponentTypes: [ObjectIdentifier : ComponentType] = [:]
-    private static var typeIndex: Int = 0
+    public static var typeIndex: Int = 0
     
     private var index: Int
     

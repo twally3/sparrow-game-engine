@@ -36,6 +36,10 @@ class Family {
     public static func all(components: Component.Type...) -> Family {
         return Family(all: ComponentType.getBits(for: components))
     }
+    
+    public func getBits() -> Bits {
+        return all
+    }
 }
 
 extension Family: Hashable {

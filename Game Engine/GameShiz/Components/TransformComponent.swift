@@ -5,7 +5,7 @@ class TransformComponent: Component {
     public var scale: SIMD3<Float>
     public var rotation: SIMD3<Float>
     
-    var modelMatrix: matrix_float4x4 {
+    public var modelMatrix: matrix_float4x4 {
         var modelMatrix = matrix_identity_float4x4
         modelMatrix.translate(direction: position)
         modelMatrix.rotate(angle: rotation.x, axis: X_AXIS)
