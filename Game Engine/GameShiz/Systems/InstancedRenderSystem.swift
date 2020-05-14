@@ -36,18 +36,20 @@ class InstancedRenderSystem: System {
                 
                 let renderComponent = entity.getComponent(componentClass: RenderComponent.self) as! RenderComponent
                 
-                var material = Material()
-                material.isLit = renderComponent.isLit
-                material.colour = renderComponent.colour
+                let material = Material(colour: renderComponent.colour,
+                                        isLit: renderComponent.isLit,
+                                        ambient: renderComponent.ambient,
+                                        diffuse: renderComponent.diffuse,
+                                        specular: renderComponent.specular,
+                                        shininess: renderComponent.shininess)
                 
                 let mesh = renderComponent.mesh
                 mesh.setInstanceCount(instanceCount)
                 
                 renderCommandEncoder.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
-                renderCommandEncoder.setFragmentBytes(&material, length: Material.stride, index: 1)
                 mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                     material: material,
-                                    baseColourTextureType: .None)
+                                    baseColourTextureType: renderComponent.textureType)
             }
         }
     }

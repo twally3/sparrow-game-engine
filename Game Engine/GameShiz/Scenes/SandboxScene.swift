@@ -1,37 +1,36 @@
 class SandboxScene: Scene {
     
     override func buildScene() {
-//        camera.setPosition(0, 0, 3)
-//        addCamera(camera)
-        
         do {
             let cube = engine.createEntity()
             try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0)))
-            try cube.add(component: RenderComponent(isLit: false,
+            try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
                                                     colour: SIMD4<Float>(1, 1, 0, 1),
-                                                    mesh: Entities.meshes[.Cube_Custom]))
+                                                    isLit: false))
 
             try engine.addEntity(entity: cube)
 
             let cube2 = engine.createEntity()
             try cube2.add(component: RotatableComponent(axis: SIMD3<Float>(0, 1, 0)))
             try cube2.add(component: TransformComponent(position: SIMD3<Float>(2, 0, 0)))
-            try cube2.add(component: RenderComponent(isLit: false,
-                                                    colour: SIMD4<Float>(1, 0, 1, 1),
-                                                    mesh: Entities.meshes[.Cube_Custom]))
+            try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
+                                                     colour: SIMD4<Float>(1, 0, 1, 1),
+                                                     isLit: false))
 
             try engine.addEntity(entity: cube2)
 
             let chest = engine.createEntity()
 //            try chest.add(component: RotatableComponent(axis: SIMD3<Float>(1, 1, 0)))
             try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
-            try chest.add(component: RenderComponent(isLit: true,
+            try chest.add(component: RenderComponent(mesh: Entities.meshes[.Chest],
                                                      colour: SIMD4<Float>(1, 1, 1, 0),
-                                                     mesh: Entities.meshes[.Chest]))
+                                                     isLit: true))
             try engine.addEntity(entity: chest)
             
             let instancedCube = engine.createEntity()
-            try instancedCube.add(component: RenderComponent(isLit: true, colour: SIMD4<Float>(1, 0, 0, 1), mesh: Entities.meshes[.Cube_Custom]))
+            try instancedCube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
+                                                             colour: SIMD4<Float>(1, 0, 0, 1),
+                                                             isLit: true))
             var transformComponents: [TransformComponent] = []
             let instanceCount = 1000
             for _ in 0..<instanceCount {
@@ -44,7 +43,9 @@ class SandboxScene: Scene {
             let sun = engine.createEntity()
             try sun.add(component: TransformComponent(position: SIMD3<Float>(0, 5, 5), scale: SIMD3<Float>(repeating: 0.3)))
             try sun.add(component: LightComponent())
-            try sun.add(component: RenderComponent(isLit: false, colour: SIMD4<Float>(1, 1, 1, 1), mesh: Entities.meshes[.Sphere]))
+            try sun.add(component: RenderComponent(mesh: Entities.meshes[.Sphere],
+                                                   colour: SIMD4<Float>(1, 1, 1, 1),
+                                                   isLit: false))
             
             try engine.addEntity(entity: sun)
             

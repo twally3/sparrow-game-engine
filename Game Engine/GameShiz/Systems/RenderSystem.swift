@@ -21,9 +21,12 @@ class RenderSystem: System {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
             let renderComponent = entity.getComponent(componentClass: RenderComponent.self) as! RenderComponent
             
-            var material = Material()
-            material.isLit = renderComponent.isLit
-            material.colour = renderComponent.colour
+            let material = Material(colour: renderComponent.colour,
+                                    isLit: renderComponent.isLit,
+                                    ambient: renderComponent.ambient,
+                                    diffuse: renderComponent.diffuse,
+                                    specular: renderComponent.specular,
+                                    shininess: renderComponent.shininess)
             
             let mesh = renderComponent.mesh
             
@@ -34,7 +37,7 @@ class RenderSystem: System {
             
             mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                 material: material,
-                                baseColourTextureType: .None)
+                                baseColourTextureType: renderComponent.textureType)
         }
     }
     
