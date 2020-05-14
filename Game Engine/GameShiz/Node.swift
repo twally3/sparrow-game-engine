@@ -44,15 +44,15 @@ class Node {
     
     func render(renderCommandEncoder: MTLRenderCommandEncoder) {
         renderCommandEncoder.pushDebugGroup("Rendering \(_name)")
-        
+
         if let renderable = self as? Renderable {
             renderable.doRender(renderCommandEncoder)
         }
-        
+
         for child in children {
             child.render(renderCommandEncoder: renderCommandEncoder)
         }
-        
+
         renderCommandEncoder.popDebugGroup()
     }
 }

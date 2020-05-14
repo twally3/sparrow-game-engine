@@ -1,12 +1,18 @@
 import MetalKit
 
-class Scene: Node {
+class Scene {
     private var _cameraManager = CameraManager()
     private var _lightManager = LightManager()
     private var _sceneConstants = SceneConstants()
     
-    override init(name: String) {
-        super.init(name: name)
+    internal var engine: ECS
+    internal var _name: String
+    
+    
+    init(name: String, engine: ECS) {
+        self.engine = engine
+        self._name = name
+
         buildScene()
     }
     
@@ -20,28 +26,22 @@ class Scene: Node {
         }
     }
     
-    func addLight(_ light: LightObject) {
-        self.addChild(light)
-        self._lightManager.addLightObject(light)
-    }
-    
     func updateCameras() {
         _cameraManager.update()
     }
     
-    override func update() {
+    func update(deltaTime: Float) {
         _sceneConstants.viewMatrix = _cameraManager.currentCamera.viewMatrix
         _sceneConstants.projectionMatrix = _cameraManager.currentCamera.projectionMatrix
         _sceneConstants.cameraPosition = _cameraManager.currentCamera.getPosition()
         
-        super.update()
+        engine.update(deltaTime: deltaTime)
     }
     
-    override func render(renderCommandEncoder: MTLRenderCommandEncoder) {
-        renderCommandEncoder.pushDebugGroup("Rendering Scene \(getName())")
+    func render(renderCommandEncoder: MTLRenderCommandEncoder) {
+        renderCommandEncoder.pushDebugGroup("Rendering Scene \(_name)")
         renderCommandEncoder.setVertexBytes(&_sceneConstants, length: SceneConstants.stride, index: 1)
-        _lightManager.setLightData(renderCommandEncoder)
-        super.render(renderCommandEncoder: renderCommandEncoder)
+        engine.render(renderCommandEncoder: renderCommandEncoder)
         renderCommandEncoder.popDebugGroup()
     }
 }

@@ -1,24 +1,44 @@
 class SandboxScene: Scene {
     let camera = FPSCameraQuaternion()
-    let chest = Chest()
-    let sun = Sun()
     
     override func buildScene() {
         camera.setPosition(0, 0, 3)
         addCamera(camera)
         
-        sun.setPosition(SIMD3<Float>(0, 5, 5))
-        addLight(sun)
-        
-        
-        chest.moveY(-0.5)
-        addChild(chest)
-    }
-    
-    override func doUpdate() {
-        if (Mouse.isMouseButtonPressed(button: .LEFT)) {
-            chest.rotateX(Mouse.getDY() * GameTime.deltaTime)
-            chest.rotateY(Mouse.getDX() * GameTime.deltaTime)
+        do {
+            let cube = engine.createEntity()
+            try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0)))
+            try cube.add(component: RenderComponent(isLit: false,
+                                                    colour: SIMD4<Float>(1, 1, 0, 1),
+                                                    mesh: Entities.meshes[.Cube_Custom]))
+            
+            try engine.addEntity(entity: cube)
+            
+            let cube2 = engine.createEntity()
+            try cube2.add(component: RotatableComponent(axis: SIMD3<Float>(0, 1, 0)))
+            try cube2.add(component: TransformComponent(position: SIMD3<Float>(2, 0, 0)))
+            try cube2.add(component: RenderComponent(isLit: false,
+                                                    colour: SIMD4<Float>(1, 0, 1, 1),
+                                                    mesh: Entities.meshes[.Cube_Custom]))
+            
+            try engine.addEntity(entity: cube2)
+            
+            let chest = engine.createEntity()
+//            try chest.add(component: RotatableComponent(axis: SIMD3<Float>(1, 1, 0)))
+            try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
+            try chest.add(component: RenderComponent(isLit: true,
+                                                     colour: SIMD4<Float>(1, 1, 1, 0),
+                                                     mesh: Entities.meshes[.Chest]))
+            try engine.addEntity(entity: chest)
+            
+            let sun = engine.createEntity()
+            try sun.add(component: TransformComponent(position: SIMD3<Float>(0, 5, 5), scale: SIMD3<Float>(repeating: 0.3)))
+            try sun.add(component: LightComponent())
+            try sun.add(component: RenderComponent(isLit: false, colour: SIMD4<Float>(1, 0, 0, 1), mesh: Entities.meshes[.Sphere]))
+            
+            try engine.addEntity(entity: sun)
+        } catch let error {
+            fatalError("\(error)")
         }
     }
 }
