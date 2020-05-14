@@ -51,6 +51,8 @@ class SandboxScene: Scene {
             let camera = engine.createEntity()
             try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 0, 3)))
             try camera.add(component: CameraComponent())
+            try camera.add(component: MouseInputComponent())
+            try camera.add(component: KeyboardInputComponent())
             try engine.addEntity(entity: camera)
             
         } catch let error {
