@@ -31,6 +31,9 @@ extension Renderer: MTKViewDelegate {
         let renderCommandEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
         renderCommandEncoder?.label = "My Render Command Encoder"
         
+        renderCommandEncoder?.setFrontFacing(.counterClockwise)
+        renderCommandEncoder?.setCullMode(.back)
+        
         renderCommandEncoder?.pushDebugGroup("Starting Render")
         SceneManager.tickScene(renderCommandEncoder: renderCommandEncoder!, deltaTime: 1 / Float(view.preferredFramesPerSecond))
         renderCommandEncoder?.popDebugGroup()

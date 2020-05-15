@@ -33,8 +33,6 @@ class RenderSystem: System {
             var modelConstants = ModelConstants(modelMatrix: transformComponent.modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
             
-            renderCommandEncoder.setFrontFacing(.counterClockwise)
-            
             mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                 material: material,
                                 baseColourTextureType: renderComponent.textureType)

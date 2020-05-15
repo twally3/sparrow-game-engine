@@ -20,7 +20,6 @@ class SandboxScene: Scene {
             try engine.addEntity(entity: cube2)
 
             let chest = engine.createEntity()
-//            try chest.add(component: RotatableComponent(axis: SIMD3<Float>(1, 1, 0)))
             try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
             try chest.add(component: RenderComponent(mesh: Entities.meshes[.Chest],
                                                      colour: SIMD4<Float>(1, 1, 1, 0),
@@ -54,6 +53,7 @@ class SandboxScene: Scene {
             try camera.add(component: CameraComponent())
             try camera.add(component: MouseInputComponent())
             try camera.add(component: KeyboardInputComponent())
+            try camera.add(component: FPSCameraComponent())
             try engine.addEntity(entity: camera)
             
         } catch let error {

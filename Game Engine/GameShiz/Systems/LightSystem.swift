@@ -32,6 +32,16 @@ class LightSystem: System {
             lightDatas.append(lightData)
         }
         
+        // This is a hack to stop the buffer from exploding with length 0
+        if lightDatas.count == 0 {
+            lightDatas.append(LightData(position: SIMD3<Float>(0, 0, 0),
+                                        colour: SIMD3<Float>(1, 1, 1),
+                                        brightness: 0,
+                                        ambientIntensity: 0,
+                                        diffuseIntensity: 0,
+                                        specularIntensity: 0))
+        }
+        
         var lightCount = lightDatas.count
         renderCommandEncoder.setFragmentBytes(&lightCount, length: Int32.size, index: 2)
         renderCommandEncoder.setFragmentBytes(&lightDatas, length: LightData.stride(lightCount), index: 3)
