@@ -1,47 +1,30 @@
 import MetalKit
 
-class Scene: Node {
-    private var _cameraManager = CameraManager()
-    private var _lightManager = LightManager()
+class Scene {
     private var _sceneConstants = SceneConstants()
     
-    override init(name: String) {
-        super.init(name: name)
+    internal var engine: ECS
+    internal var _name: String
+    
+    
+    init(name: String, engine: ECS) {
+        self.engine = engine
+        self._name = name
+
         buildScene()
     }
     
     func buildScene() {}
     
-    func addCamera(_ camera: Camera, _ isCurrentCamera: Bool = true) {
-        _cameraManager.registerCamera(camera: camera)
+    func update(deltaTime: Float) {
+        engine.update(deltaTime: deltaTime)
+    }
+    
+    func render(renderCommandEncoder: MTLRenderCommandEncoder) {
+        renderCommandEncoder.pushDebugGroup("Rendering Scene \(_name)")
         
-        if (isCurrentCamera) {
-            _cameraManager.setCamera(camera.cameraType)
-        }
-    }
-    
-    func addLight(_ light: LightObject) {
-        self.addChild(light)
-        self._lightManager.addLightObject(light)
-    }
-    
-    func updateCameras() {
-        _cameraManager.update()
-    }
-    
-    override func update() {
-        _sceneConstants.viewMatrix = _cameraManager.currentCamera.viewMatrix
-        _sceneConstants.projectionMatrix = _cameraManager.currentCamera.projectionMatrix
-        _sceneConstants.cameraPosition = _cameraManager.currentCamera.getPosition()
+        engine.render(renderCommandEncoder: renderCommandEncoder)
         
-        super.update()
-    }
-    
-    override func render(renderCommandEncoder: MTLRenderCommandEncoder) {
-        renderCommandEncoder.pushDebugGroup("Rendering Scene \(getName())")
-        renderCommandEncoder.setVertexBytes(&_sceneConstants, length: SceneConstants.stride, index: 1)
-        _lightManager.setLightData(renderCommandEncoder)
-        super.render(renderCommandEncoder: renderCommandEncoder)
         renderCommandEncoder.popDebugGroup()
     }
 }
