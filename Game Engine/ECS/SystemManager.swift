@@ -20,7 +20,7 @@ class SystemManager {
         systems.sort(by: { $0.priority < $1.priority })
     }
     
-    public func getSystem(type: System.Type) -> System? {
+    private func getSystem(type: System.Type) -> System? {
         return systemsByClass[type.classIdentifier]
     }
     
