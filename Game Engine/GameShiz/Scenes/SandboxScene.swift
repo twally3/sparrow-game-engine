@@ -39,6 +39,11 @@ class SandboxScene: Scene {
             try instancedCube.add(component: InstancedTransformComponent(instanceCount: instanceCount, transformComponents: transformComponents))
             try engine.addEntity(entity: instancedCube)
             
+            let skybox = engine.createEntity()
+            try skybox.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 1000)))
+            try skybox.add(component: SkyboxComponent(textureType: .SkyBox))
+            try engine.addEntity(entity: skybox)
+            
             let sun = engine.createEntity()
             try sun.add(component: TransformComponent(position: SIMD3<Float>(0, 5, 5), scale: SIMD3<Float>(repeating: 0.3)))
             try sun.add(component: LightComponent())
