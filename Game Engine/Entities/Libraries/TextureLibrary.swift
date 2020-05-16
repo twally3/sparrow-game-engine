@@ -4,6 +4,7 @@ enum TextureTypes{
     case None
     case PartyPirateParot
     case Cruiser
+    case SkyBox
 }
 
 class TextureLibrary: Library<TextureTypes, MTLTexture> {
@@ -12,6 +13,8 @@ class TextureLibrary: Library<TextureTypes, MTLTexture> {
     override func fillLibrary() {
         _library.updateValue(Texture("PartyPirateParot"), forKey: .PartyPirateParot)
         _library.updateValue(Texture("cruiser", ext: "bmp", origin: .bottomLeft), forKey: .Cruiser)
+        
+        _library.updateValue(Texture(["left", "right", "up", "down", "back", "front"]), forKey: .SkyBox)
     }
     
     override subscript(_ type: TextureTypes) -> MTLTexture? {
@@ -26,6 +29,55 @@ class Texture {
         let textureLoader = TextureLoader(textureName: textureName, textureExtension: ext, origin: origin)
         let texture: MTLTexture = textureLoader.loadTextureFromBundle()
         setTexture(texture)
+    }
+    
+    init(_ textureNames: [String], ext: String = "png", origin: MTKTextureLoader.Origin = .topLeft) {
+        var texture: MTLTexture!
+        
+        texture = loadCubeMap(textureNames: textureNames, ext: ext, origin: origin)
+        
+        setTexture(texture)
+    }
+    
+    func loadCubeMap(textureNames: [String], ext: String, origin: MTKTextureLoader.Origin) -> MTLTexture {
+        var texture: MTLTexture!
+        let scale: Int = 1
+        #if os(iOS)
+            let firstImage = UIImage(named: textureNames.first!)
+        #elseif os(macOS)
+            let firstImage = NSImage(named: textureNames.first!)
+        #endif
+        let cubeSize = Int(firstImage!.size.width) * scale
+
+        let textureDescriptor = MTLTextureDescriptor()
+        textureDescriptor.pixelFormat = .bgra8Unorm_srgb
+        textureDescriptor.height = cubeSize
+        textureDescriptor.width = cubeSize
+        textureDescriptor.textureType = .typeCube
+        
+        texture = Engine.device.makeTexture(descriptor: textureDescriptor)
+
+        for (i, imageName) in textureNames.enumerated() {
+            let textureLoader = TextureLoader(textureName: imageName, textureExtension: ext, origin: origin)
+            let tex: MTLTexture = textureLoader.loadTextureFromBundle()
+            
+            let rowBytes = cubeSize * 4
+            let length = rowBytes * cubeSize
+            let bgraBytes = [UInt8](repeating: 0, count: length)
+            tex.getBytes(UnsafeMutableRawPointer(mutating: bgraBytes),
+                         bytesPerRow: rowBytes,
+                         from: MTLRegionMake2D(0, 0, cubeSize, cubeSize),
+                         mipmapLevel: 0)
+            
+            texture.replace(region: MTLRegionMake2D(0, 0, cubeSize, cubeSize),
+                             mipmapLevel: 0,
+                             slice: i,
+                             withBytes: bgraBytes,
+                             bytesPerRow: rowBytes,
+                             bytesPerImage: bgraBytes.count)
+        }
+        
+        return texture
     }
     
     func setTexture(_ texture: MTLTexture){

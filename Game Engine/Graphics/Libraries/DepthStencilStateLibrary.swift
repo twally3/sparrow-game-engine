@@ -2,6 +2,7 @@ import MetalKit
 
 enum DepthStencilStateTypes {
     case Less
+    case SkyBox
 }
 
 class DepthStencilStateLibrary: Library<DepthStencilStateTypes, MTLDepthStencilState> {
@@ -9,6 +10,7 @@ class DepthStencilStateLibrary: Library<DepthStencilStateTypes, MTLDepthStencilS
     
     override func fillLibrary() {
         _library.updateValue(Less_DepthStencilState(), forKey: .Less)
+        _library.updateValue(Skybox_DepthStencilState(), forKey: .SkyBox)
     }
     
     override subscript(_ type: DepthStencilStateTypes) -> MTLDepthStencilState {
@@ -27,6 +29,18 @@ class Less_DepthStencilState: DepthStencilState {
         let depthStencilDescriptor = MTLDepthStencilDescriptor()
         depthStencilDescriptor.isDepthWriteEnabled = true
         depthStencilDescriptor.depthCompareFunction = .less
+        depthStencilState = Engine.device.makeDepthStencilState(descriptor: depthStencilDescriptor)
+    }
+}
+
+class Skybox_DepthStencilState: DepthStencilState {
+    var depthStencilState: MTLDepthStencilState!
+    
+    init() {
+        let depthStencilDescriptor = MTLDepthStencilDescriptor()
+        depthStencilDescriptor.isDepthWriteEnabled = false
+//        depthStencilDescriptor.isDepthWriteEnabled = true
+//        depthStencilDescriptor.depthCompareFunction = .less
         depthStencilState = Engine.device.makeDepthStencilState(descriptor: depthStencilDescriptor)
     }
 }

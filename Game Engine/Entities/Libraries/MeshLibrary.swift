@@ -9,6 +9,7 @@ enum MeshTypes {
     case Sphere
     case Chest
     case TheSuzannes
+    case SkyBox_Custom
 }
 
 class MeshLibrary: Library<MeshTypes, Mesh> {
@@ -23,6 +24,7 @@ class MeshLibrary: Library<MeshTypes, Mesh> {
         _library.updateValue(Mesh(modelName: "sphere"), forKey: .Sphere)
         _library.updateValue(Mesh(modelName: "chest"), forKey: .Chest)
         _library.updateValue(Mesh(modelName: "TheSuzannes"), forKey: .TheSuzannes)
+        _library.updateValue(Skybox_CustomMesh(), forKey: .SkyBox_Custom)
     }
     
     override subscript(_ type: MeshTypes) -> Mesh {
@@ -277,5 +279,54 @@ class Cube_CustomMesh: Mesh {
                                      7, 0, 5, 7, 1, 0,
                                      6, 0, 3, 6, 5, 0,
                                      2, 1, 7, 4, 2, 7]))
+    }
+}
+
+class Skybox_CustomMesh: Mesh {
+    override func createMesh() {
+        // + Y
+        addVertex(position: SIMD3<Float>(-0.5,  0.5,  0.5), normal: SIMD3<Float>(0.0, -1.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5,  0.5,  0.5), normal: SIMD3<Float>(0.0, -1.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5,  0.5, -0.5), normal: SIMD3<Float>(0.0, -1.0,  0.0))
+        addVertex(position: SIMD3<Float>(-0.5,  0.5, -0.5), normal: SIMD3<Float>(0.0, -1.0,  0.0))
+
+        // -Y
+        addVertex(position: SIMD3<Float>(-0.5, -0.5, -0.5), normal: SIMD3<Float>(0.0,  1.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5, -0.5, -0.5), normal: SIMD3<Float>(0.0,  1.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5, -0.5,  0.5), normal: SIMD3<Float>(0.0,  1.0,  0.0))
+        addVertex(position: SIMD3<Float>(-0.5, -0.5,  0.5), normal: SIMD3<Float>(0.0,  1.0,  0.0))
+
+        // +Z
+        addVertex(position: SIMD3<Float>(-0.5, -0.5,  0.5), normal: SIMD3<Float>(0.0,  0.0, -1.0))
+        addVertex(position: SIMD3<Float>( 0.5, -0.5,  0.5), normal: SIMD3<Float>(0.0,  0.0, -1.0))
+        addVertex(position: SIMD3<Float>( 0.5,  0.5,  0.5), normal: SIMD3<Float>(0.0,  0.0, -1.0))
+        addVertex(position: SIMD3<Float>(-0.5,  0.5,  0.5), normal: SIMD3<Float>(0.0,  0.0, -1.0))
+
+        // -Z
+        addVertex(position: SIMD3<Float>( 0.5, -0.5, -0.5), normal: SIMD3<Float>(0.0,  0.0,  1.0))
+        addVertex(position: SIMD3<Float>(-0.5, -0.5, -0.5), normal: SIMD3<Float>(0.0,  0.0,  1.0))
+        addVertex(position: SIMD3<Float>(-0.5,  0.5, -0.5), normal: SIMD3<Float>(0.0,  0.0,  1.0))
+        addVertex(position: SIMD3<Float>( 0.5,  0.5, -0.5), normal: SIMD3<Float>(0.0,  0.0,  1.0))
+
+        // -X
+        addVertex(position: SIMD3<Float>(-0.5, -0.5, -0.5), normal: SIMD3<Float>(1.0,  0.0,  0.0))
+        addVertex(position: SIMD3<Float>(-0.5, -0.5,  0.5), normal: SIMD3<Float>(1.0,  0.0,  0.0))
+        addVertex(position: SIMD3<Float>(-0.5,  0.5,  0.5), normal: SIMD3<Float>(1.0,  0.0,  0.0))
+        addVertex(position: SIMD3<Float>(-0.5,  0.5, -0.5), normal: SIMD3<Float>(1.0,  0.0,  0.0))
+
+        // +X
+        addVertex(position: SIMD3<Float>( 0.5, -0.5,  0.5), normal: SIMD3<Float>(-1.0,  0.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5, -0.5, -0.5), normal: SIMD3<Float>(-1.0,  0.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5,  0.5, -0.5), normal: SIMD3<Float>(-1.0,  0.0,  0.0))
+        addVertex(position: SIMD3<Float>( 0.5,  0.5,  0.5), normal: SIMD3<Float>(-1.0,  0.0,  0.0))
+
+        addSubmesh(Submesh(indices: [
+            0,  3,  2,  2,  1,  0,
+            4,  7,  6,  6,  5,  4,
+            8, 11, 10, 10,  9,  8,
+            12, 15, 14, 14, 13, 12,
+            16, 19, 18, 18, 17, 16,
+            20, 23, 22, 22, 21, 20
+        ]))
     }
 }

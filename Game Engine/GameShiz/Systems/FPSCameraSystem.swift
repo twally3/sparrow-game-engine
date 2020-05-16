@@ -42,7 +42,13 @@ class FPSCameraSystem: System {
             let mouseDelta = SIMD2<Float>(x: mouseInputComponent.dx, y: mouseInputComponent.dy)
 
             transformComponent.rotation.y += fpsCameraComponent.mouseXSensitivity * mouseDelta.x * deltaTime
-            transformComponent.rotation.x += fpsCameraComponent.mouseYSensitivity * mouseDelta.y * deltaTime
+            
+            // Stop the camera from rotating over itself
+            var xRotation = transformComponent.rotation.x + fpsCameraComponent.mouseYSensitivity * mouseDelta.y * deltaTime
+            if xRotation > Float.pi / 2 || xRotation < -Float.pi / 2 {
+                xRotation = (Float.pi / 2 + 0.001) * sign(xRotation)
+            }
+            transformComponent.rotation.x = xRotation
         }
     }
     

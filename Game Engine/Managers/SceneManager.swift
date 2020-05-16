@@ -17,6 +17,7 @@ class SceneManager {
             try engine.addSystem(system: KeyboardInputSystem(priority: 0))
             try engine.addSystem(system: CameraSystem(priority: 0))
             try engine.addSystem(system: LightSystem(priority: 0))
+            try engine.addSystem(system: SkyboxSystem(priority: 0))
             try engine.addSystem(system: RenderSystem(priority: 0))
             try engine.addSystem(system: InstancedRenderSystem(priority: 0))
             try engine.addSystem(system: FPSCameraSystem(priority: 0))
