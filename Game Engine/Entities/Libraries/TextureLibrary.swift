@@ -63,11 +63,14 @@ class Texture {
             
             let rowBytes = cubeSize * 4
             let length = rowBytes * cubeSize
-            let bgraBytes = [UInt8](repeating: 0, count: length)
-            tex.getBytes(UnsafeMutableRawPointer(mutating: bgraBytes),
-                         bytesPerRow: rowBytes,
-                         from: MTLRegionMake2D(0, 0, cubeSize, cubeSize),
-                         mipmapLevel: 0)
+            var bgraBytes = [UInt8](repeating: 0, count: length)
+
+            bgraBytes.withUnsafeMutableBytes { ptr in
+                tex.getBytes(ptr.baseAddress!,
+                             bytesPerRow: rowBytes,
+                             from: MTLRegionMake2D(0, 0, cubeSize, cubeSize),
+                             mipmapLevel: 0)
+            }
             
             texture.replace(region: MTLRegionMake2D(0, 0, cubeSize, cubeSize),
                              mipmapLevel: 0,

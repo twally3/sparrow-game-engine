@@ -745,7 +745,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Max Taylor";
 				TargetAttributes = {
 					505D1A2E23A2F4E800813A05 = {
@@ -1170,6 +1170,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Game Engine/Game Engine macOS/Game_Engine.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = WR4MDQ7483;
@@ -1190,6 +1191,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Game Engine/Game Engine macOS/Game_Engine.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = WR4MDQ7483;
