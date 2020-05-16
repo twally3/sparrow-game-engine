@@ -1,6 +1,7 @@
 import MetalKit
 
 class Renderer: NSObject {
+    var time: Date = Date()
     public static var screenSize = SIMD2<Float>(repeating: 0)
     public static var aspectRatio: Float {
         return screenSize.x / screenSize.y
@@ -13,7 +14,6 @@ class Renderer: NSObject {
 }
 
 extension Renderer: MTKViewDelegate {
-    
     public func updateScreenSize(view: MTKView) {
         Renderer.screenSize = SIMD2<Float>(Float(view.bounds.width), Float(view.bounds.height))
     }
@@ -23,6 +23,10 @@ extension Renderer: MTKViewDelegate {
     }
     
     func draw(in view: MTKView) {
+        let newDate = Date()
+        let elapsed = newDate.timeIntervalSince(time)
+        time = newDate
+        
         guard let drawable = view.currentDrawable, let renderPassDescriptor = view.currentRenderPassDescriptor else { return }
         
         let commandBuffer = Engine.commandQueue.makeCommandBuffer()
@@ -35,7 +39,7 @@ extension Renderer: MTKViewDelegate {
         renderCommandEncoder?.setCullMode(.back)
         
         renderCommandEncoder?.pushDebugGroup("Starting Render")
-        SceneManager.tickScene(renderCommandEncoder: renderCommandEncoder!, deltaTime: 1 / Float(view.preferredFramesPerSecond))
+        SceneManager.tickScene(renderCommandEncoder: renderCommandEncoder!, deltaTime: Float(elapsed))
         renderCommandEncoder?.popDebugGroup()
         
         renderCommandEncoder?.endEncoding()
