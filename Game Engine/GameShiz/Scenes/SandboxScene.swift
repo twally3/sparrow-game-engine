@@ -3,41 +3,42 @@ class SandboxScene: Scene {
     override func buildScene() {
         do {
             let cube = engine.createEntity()
+            try cube.add(component: BoundingBoxComponent(position: SIMD3<Float>(-2.5, -0.5, -0.5), size: SIMD3<Float>(1.1, 1.1, 1.1)))
             try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0)))
             try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
                                                     colour: SIMD4<Float>(1, 1, 0, 1),
                                                     isLit: false))
-
             try engine.addEntity(entity: cube)
 
             let cube2 = engine.createEntity()
-            try cube2.add(component: RotatableComponent(axis: SIMD3<Float>(0, 1, 0)))
+            try cube2.add(component: RotatableComponent(axis: SIMD3<Float>(1, 0, 0)))
+            try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(1.5, -0.5, -0.5), size: SIMD3<Float>(1.1, 1.1, 1.1)))
+//            try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(-1.5, -0.5, -0.5), size: SIMD3<Float>(1.1, 1.1, 1.1)))
             try cube2.add(component: TransformComponent(position: SIMD3<Float>(2, 0, 0)))
             try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
                                                      colour: SIMD4<Float>(1, 0, 1, 1),
                                                      isLit: false))
-
             try engine.addEntity(entity: cube2)
 
-            let chest = engine.createEntity()
-            try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
-            try chest.add(component: RenderComponent(mesh: Entities.meshes[.Chest],
-                                                     colour: SIMD4<Float>(1, 1, 1, 0),
-                                                     isLit: true))
-            try engine.addEntity(entity: chest)
+//            let chest = engine.createEntity()
+//            try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
+//            try chest.add(component: RenderComponent(mesh: Entities.meshes[.Chest],
+//                                                     colour: SIMD4<Float>(1, 1, 1, 0),
+//                                                     isLit: true))
+//            try engine.addEntity(entity: chest)
             
-            let instancedCube = engine.createEntity()
-            try instancedCube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
-                                                             colour: SIMD4<Float>(1, 0, 0, 1),
-                                                             isLit: true))
-            var transformComponents: [TransformComponent] = []
-            let instanceCount = 1000
-            for _ in 0..<instanceCount {
-                transformComponents.append(TransformComponent(position: SIMD3<Float>.random(in: -50...50),
-                                                              scale: SIMD3<Float>(repeating: 1)))
-            }
-            try instancedCube.add(component: InstancedTransformComponent(instanceCount: instanceCount, transformComponents: transformComponents))
-            try engine.addEntity(entity: instancedCube)
+//            let instancedCube = engine.createEntity()
+//            try instancedCube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
+//                                                             colour: SIMD4<Float>(1, 0, 0, 1),
+//                                                             isLit: true))
+//            var transformComponents: [TransformComponent] = []
+//            let instanceCount = 1000
+//            for _ in 0..<instanceCount {
+//                transformComponents.append(TransformComponent(position: SIMD3<Float>.random(in: -50...50),
+//                                                              scale: SIMD3<Float>(repeating: 1)))
+//            }
+//            try instancedCube.add(component: InstancedTransformComponent(instanceCount: instanceCount, transformComponents: transformComponents))
+//            try engine.addEntity(entity: instancedCube)
             
             let skybox = engine.createEntity()
             try skybox.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 1000)))

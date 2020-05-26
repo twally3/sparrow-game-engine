@@ -16,7 +16,13 @@ class RotationSystem: System {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
             let rotatableComponent = entity.getComponent(componentClass: RotatableComponent.self) as! RotatableComponent
             
-            transformComponent.rotation += deltaTime * rotatableComponent.axis
+//            transformComponent.rotation += deltaTime * rotatableComponent.axis
+            transformComponent.position -= deltaTime * rotatableComponent.axis
+            
+            do {
+                let x = entity.getComponent(componentClass: BoundingBoxComponent.self) as! BoundingBoxComponent
+                x.position -= deltaTime * rotatableComponent.axis
+            }
         }
     }
     

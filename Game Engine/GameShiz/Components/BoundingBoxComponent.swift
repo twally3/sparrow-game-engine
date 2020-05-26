@@ -1,9 +1,9 @@
-//
-//  BoundingBoxComponent.swift
-//  Game Engine macOS
-//
-//  Created by Max Taylor on 16/05/2020.
-//  Copyright © 2020 Max Taylor. All rights reserved.
-//
-
-import Foundation
+class BoundingBoxComponent: Component {
+    public var position = SIMD3<Float>(0, 0, 0)
+    public var size = SIMD3<Float>(0, 0, 0)
+    
+    init(position: SIMD3<Float>, size: SIMD3<Float>) {
+        self.position = position
+        self.size = size
+    }
+}
