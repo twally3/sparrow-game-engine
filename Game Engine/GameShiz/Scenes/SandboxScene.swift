@@ -3,18 +3,18 @@ class SandboxScene: Scene {
     override func buildScene() {
         do {
             let cube = engine.createEntity()
-            try cube.add(component: BoundingBoxComponent(position: SIMD3<Float>(-2.5, -0.5, -0.5), size: SIMD3<Float>(1.1, 1.1, 1.1)))
-            try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0)))
+            try cube.add(component: RotatableComponent(axis: SIMD3<Float>(1, 0, 0)))
+            try cube.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
+            try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0), scale: SIMD3<Float>(1, 1, 1)))
             try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
                                                     colour: SIMD4<Float>(1, 1, 0, 1),
                                                     isLit: false))
             try engine.addEntity(entity: cube)
 
             let cube2 = engine.createEntity()
-            try cube2.add(component: RotatableComponent(axis: SIMD3<Float>(1, 0, 0)))
-            try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(1.5, -0.5, -0.5), size: SIMD3<Float>(1.1, 1.1, 1.1)))
-//            try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(-1.5, -0.5, -0.5), size: SIMD3<Float>(1.1, 1.1, 1.1)))
-            try cube2.add(component: TransformComponent(position: SIMD3<Float>(2, 0, 0)))
+//            try cube2.add(component: RotatableComponent(axis: SIMD3<Float>(1, 0, 0)))
+            try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
+            try cube2.add(component: TransformComponent(position: SIMD3<Float>(1, 0, 0), scale: SIMD3<Float>(repeating: 0.25)))
             try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
                                                      colour: SIMD4<Float>(1, 0, 1, 1),
                                                      isLit: false))

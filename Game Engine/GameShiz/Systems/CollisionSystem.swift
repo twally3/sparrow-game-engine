@@ -1,7 +1,7 @@
 import MetalKit
 
 struct EndPoint {
-    public var value: Float
+    public var value: SIMD3<Float>
     public var isMin: Bool
     public var box: Entity
 }
@@ -27,14 +27,23 @@ class CollisionSystem: System {
         
         for entity in entities {
             let boundingBoxComponent = entity.getComponent(componentClass: BoundingBoxComponent.self) as! BoundingBoxComponent
-            let minPoint = EndPoint(value: boundingBoxComponent.position.x, isMin: true, box: entity)
-            let maxPoint = EndPoint(value: boundingBoxComponent.position.x + boundingBoxComponent.size.x, isMin: false, box: entity)
+            let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
+            
+            let relativeScale = boundingBoxComponent.size * transformComponent.scale
+            let origin = boundingBoxComponent.position + transformComponent.position
+            
+            let minPoint = EndPoint(value: origin - relativeScale / 2,
+                                    isMin: true,
+                                    box: entity)
+            let maxPoint = EndPoint(value: origin + relativeScale / 2,
+                                    isMin: false,
+                                    box: entity)
                         
             boxes.append(Box(min: minPoint, max: maxPoint))
         }
         
         boxes.sort { (a, b) -> Bool in
-            a.min.value < b.min.value
+            a.min.value.x < b.min.value.x
         }
         
         var activeList: [Box] = []
@@ -43,13 +52,15 @@ class CollisionSystem: System {
         for i in 0..<boxes.count {
             let box = boxes[i]
             
+            // Should move backwards
             for j in 0..<activeList.count {
                 let activeBox = activeList[j]
-                if box.min.value > activeBox.max.value {
+                if box.min.value.x > activeBox.max.value.x {
                     activeList.remove(at: j)
                 } else {
-                    pairs.append((box, activeBox))
-//                    print(box, activeBox)
+                    if intersectsBox(a: box, b: activeBox) {
+                        pairs.append((box, activeBox))
+                    }
                 }
             }
             
@@ -76,12 +87,13 @@ class CollisionSystem: System {
                                     shininess: 2)
             
             let mesh = Entities.meshes[.Cube_Custom]
-            
-            let modelMatrix = getModelMatrix(position: boundingBoxComponent.position, scale: boundingBoxComponent.size)
+             
+            let modelMatrix = getModelMatrix(position: transformComponent.position + boundingBoxComponent.position,
+                                             scale: boundingBoxComponent.size * transformComponent.scale * 1.001)
             
             var modelConstants = ModelConstants(modelMatrix: modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
-            
+            renderCommandEncoder.setTriangleFillMode(.lines)
             mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                 material: material)
         }
@@ -106,8 +118,14 @@ class CollisionSystem: System {
     
     func getModelMatrix(position: SIMD3<Float>, scale: SIMD3<Float>) -> matrix_float4x4 {
         var modelMatrix = matrix_identity_float4x4
-        modelMatrix.translate(direction: position + 0.5)
+        modelMatrix.translate(direction: position)
         modelMatrix.scale(axis: scale)
         return modelMatrix
+    }
+    
+    private func intersectsBox(a: Box, b: Box) -> Bool {
+        return a.min.value.x <= b.max.value.x && a.max.value.x >= b.min.value.x &&
+            a.min.value.y <= b.max.value.y && a.max.value.y >= b.min.value.y &&
+            a.min.value.z <= b.max.value.z && a.max.value.z >= b.min.value.z
     }
 }
