@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		500385E2248EF7C700405807 /* MovableSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500385E1248EF7C700405807 /* MovableSystem.swift */; };
+		500385E4248EF80C00405807 /* MovableComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500385E3248EF80C00405807 /* MovableComponent.swift */; };
 		501BB90E244F56F9007797BA /* chest.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90A244F56F8007797BA /* chest.mtl */; };
 		501BB90F244F56F9007797BA /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90B244F56F8007797BA /* chest.obj */; };
 		501BB910244F56F9007797BA /* Chest_Wood_Base_Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90C244F56F9007797BA /* Chest_Wood_Base_Color.png */; };
@@ -134,6 +136,8 @@
 		508F0B0A2470251A00121CD3 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 508F0AFF2470251A00121CD3 /* back.png */; };
 		508F0B0B2470251A00121CD3 /* front.png in Resources */ = {isa = PBXBuildFile; fileRef = 508F0B002470251A00121CD3 /* front.png */; };
 		508F0B0C2470251A00121CD3 /* front.png in Resources */ = {isa = PBXBuildFile; fileRef = 508F0B002470251A00121CD3 /* front.png */; };
+		508F0B0E2470925000121CD3 /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F0B0D2470925000121CD3 /* CollisionSystem.swift */; };
+		508F0B10247092D300121CD3 /* BoundingBoxComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F0B0F247092D300121CD3 /* BoundingBoxComponent.swift */; };
 		50A4646D23A712D4000D562D /* DepthStencilStateLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4646C23A712D4000D562D /* DepthStencilStateLibrary.swift */; };
 		50A4647023A7B876000D562D /* ColourUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4646F23A7B876000D562D /* ColourUtil.swift */; };
 		50B46811246D8FD900735E8C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B46808246D8FD800735E8C /* System.swift */; };
@@ -191,6 +195,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		500385E1248EF7C700405807 /* MovableSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableSystem.swift; sourceTree = "<group>"; };
+		500385E3248EF80C00405807 /* MovableComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableComponent.swift; sourceTree = "<group>"; };
 		501BB90A244F56F8007797BA /* chest.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.mtl; sourceTree = "<group>"; };
 		501BB90B244F56F8007797BA /* chest.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.obj; sourceTree = "<group>"; };
 		501BB90C244F56F9007797BA /* Chest_Wood_Base_Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chest_Wood_Base_Color.png; sourceTree = "<group>"; };
@@ -251,6 +257,8 @@
 		508F0AFE2470251A00121CD3 /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
 		508F0AFF2470251A00121CD3 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		508F0B002470251A00121CD3 /* front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = front.png; sourceTree = "<group>"; };
+		508F0B0D2470925000121CD3 /* CollisionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionSystem.swift; sourceTree = "<group>"; };
+		508F0B0F247092D300121CD3 /* BoundingBoxComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBoxComponent.swift; sourceTree = "<group>"; };
 		50A4646C23A712D4000D562D /* DepthStencilStateLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepthStencilStateLibrary.swift; sourceTree = "<group>"; };
 		50A4646F23A7B876000D562D /* ColourUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourUtil.swift; sourceTree = "<group>"; };
 		50B46808246D8FD800735E8C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
@@ -609,6 +617,8 @@
 				50F11ECB246DFC7E00E61759 /* KeyboardInputSystem.swift */,
 				506A9980246EB3DB002BD2E5 /* FPSCameraSystem.swift */,
 				508F0AF42470243300121CD3 /* SkyboxSystem.swift */,
+				508F0B0D2470925000121CD3 /* CollisionSystem.swift */,
+				500385E1248EF7C700405807 /* MovableSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -626,6 +636,8 @@
 				50F11EC9246DFC2B00E61759 /* KeyboardInputComponent.swift */,
 				506A9982246EB406002BD2E5 /* FPSCameraComponent.swift */,
 				508F0AF72470246E00121CD3 /* SkyboxComponent.swift */,
+				508F0B0F247092D300121CD3 /* BoundingBoxComponent.swift */,
+				500385E3248EF80C00405807 /* MovableComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -870,8 +882,10 @@
 				50215E2D23A7F1C400B0C166 /* BasicShaders.metal in Sources */,
 				505D1A6023A2FCCF00813A05 /* GameView.swift in Sources */,
 				50215E3A23A8111800B0C166 /* SamplerStateLibrary.swift in Sources */,
+				500385E4248EF80C00405807 /* MovableComponent.swift in Sources */,
 				50B46827246D90A600735E8C /* TransformComponent.swift in Sources */,
 				50F11ECC246DFC7E00E61759 /* KeyboardInputSystem.swift in Sources */,
+				508F0B10247092D300121CD3 /* BoundingBoxComponent.swift in Sources */,
 				50BC8EB323A53FA6003544A5 /* VertexDescriptorLibrary.swift in Sources */,
 				506A9981246EB3DB002BD2E5 /* FPSCameraSystem.swift in Sources */,
 				50B46821246D8FFA00735E8C /* Event.swift in Sources */,
@@ -895,6 +909,7 @@
 				50215E2B23A7F19400B0C166 /* Shared.metal in Sources */,
 				50BC8EB723A545BF003544A5 /* RenderPipelineStateLibrary.swift in Sources */,
 				50A4646D23A712D4000D562D /* DepthStencilStateLibrary.swift in Sources */,
+				508F0B0E2470925000121CD3 /* CollisionSystem.swift in Sources */,
 				50F11EC8246DFA9600E61759 /* MouseInputSystem.swift in Sources */,
 				50F11EC0246DEDB500E61759 /* CameraComponent.swift in Sources */,
 				50B46815246D8FD900735E8C /* SystemManager.swift in Sources */,
@@ -915,6 +930,7 @@
 				50215E1D23A7E42B00B0C166 /* Graphics.swift in Sources */,
 				505D1A6A23A382D200813A05 /* Engine.swift in Sources */,
 				50B46835246DC49900735E8C /* InstancedRenderSystem.swift in Sources */,
+				500385E2248EF7C700405807 /* MovableSystem.swift in Sources */,
 				50F11EC6246DF97800E61759 /* MouseInputComponent.swift in Sources */,
 				50F11EC2246DEEC300E61759 /* CameraSystem.swift in Sources */,
 				50B4681F246D8FF200735E8C /* Bits.swift in Sources */,
