@@ -21,20 +21,13 @@ class RenderSystem: System {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
             let renderComponent = entity.getComponent(componentClass: RenderComponent.self) as! RenderComponent
             
-            let material = Material(colour: renderComponent.colour,
-                                    isLit: renderComponent.isLit,
-                                    ambient: renderComponent.ambient,
-                                    diffuse: renderComponent.diffuse,
-                                    specular: renderComponent.specular,
-                                    shininess: renderComponent.shininess)
-            
             let mesh = renderComponent.mesh
             
             var modelConstants = ModelConstants(modelMatrix: transformComponent.modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
             
             mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
-                                material: material,
+                                material: renderComponent.material,
                                 baseColourTextureType: renderComponent.textureType,
                                 baseNormalMapTextureType: renderComponent.normalMapType )
         }

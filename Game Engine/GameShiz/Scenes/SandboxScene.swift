@@ -6,30 +6,28 @@ class SandboxScene: Scene {
             try cube.add(component: MovableComponent())
             try cube.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
             try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0), scale: SIMD3<Float>(1, 1, 1)))
-            try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
-                                                    colour: SIMD4<Float>(1, 1, 0, 1),
-                                                    isLit: false))
+            var material = Material()
+            material.isLit = false
+            material.colour = SIMD4<Float>(1, 1, 0, 1)
+            try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: material))
             try engine.addEntity(entity: cube)
 
             let cube2 = engine.createEntity()
             try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
             try cube2.add(component: TransformComponent(position: SIMD3<Float>(1, 0, 0), scale: SIMD3<Float>(repeating: 0.25)))
-            try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
-                                                     colour: SIMD4<Float>(1, 0, 1, 1),
-                                                     isLit: false))
+            var material2 = Material()
+            material2.isLit = false
+            material2.colour = SIMD4<Float>(1, 0, 1, 1)
+            try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: material2))
             try engine.addEntity(entity: cube2)
 
 //            let chest = engine.createEntity()
 //            try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
-//            try chest.add(component: RenderComponent(mesh: Entities.meshes[.Chest],
-//                                                     colour: SIMD4<Float>(1, 1, 1, 0),
-//                                                     isLit: true))
+//            try chest.add(component: RenderComponent(mesh: Entities.meshes[.Chest]))
 //            try engine.addEntity(entity: chest)
-            
+//
 //            let instancedCube = engine.createEntity()
-//            try instancedCube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom],
-//                                                             colour: SIMD4<Float>(1, 0, 0, 1),
-//                                                             isLit: true))
+//            try instancedCube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom]))
 //            var transformComponents: [TransformComponent] = []
 //            let instanceCount = 1000
 //            for _ in 0..<instanceCount {
@@ -40,9 +38,8 @@ class SandboxScene: Scene {
 //            try engine.addEntity(entity: instancedCube)
             
             let quad = engine.createEntity()
-            try quad.add(component: TransformComponent())
-//            try quad.add(component: RenderComponent(mesh: Entities.meshes[.Quad], isLit: true))
-            try quad.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .MetalPlate_Diff, normalMapType: .MetalPlate_Normal, isLit: true))
+            try quad.add(component: TransformComponent(position: SIMD3<Float>(0, -0.5, 0)))
+            try quad.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .MetalPlate_Diff, normalMapType: .MetalPlate_Normal))
             try quad.add(component: RotatableComponent(isMouseControlled: true))
             try quad.add(component: MouseInputComponent())
             try engine.addEntity(entity: quad)
@@ -55,10 +52,7 @@ class SandboxScene: Scene {
             let sun = engine.createEntity()
             try sun.add(component: TransformComponent(position: SIMD3<Float>(0, 5, 5), scale: SIMD3<Float>(repeating: 0.3)))
             try sun.add(component: LightComponent())
-            try sun.add(component: RenderComponent(mesh: Entities.meshes[.Sphere],
-                                                   colour: SIMD4<Float>(1, 1, 1, 1),
-                                                   isLit: false))
-            
+            try sun.add(component: RenderComponent(mesh: Entities.meshes[.Sphere]))
             try engine.addEntity(entity: sun)
             
             let camera = engine.createEntity()
