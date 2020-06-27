@@ -49,7 +49,8 @@ class InstancedRenderSystem: System {
                 renderCommandEncoder.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
                 mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                     material: material,
-                                    baseColourTextureType: renderComponent.textureType)
+                                    baseColourTextureType: renderComponent.textureType,
+                                    baseNormalMapTextureType: renderComponent.normalMapType)
             }
         }
     }
