@@ -57,9 +57,6 @@ class CollisionSystem: System {
         sortAxis(endPoints: &endPointsX, axis: .x)
         sortAxis(endPoints: &endPointsY, axis: .y)
         sortAxis(endPoints: &endPointsZ, axis: .z)
-        
-        print(pairs)
-        print("---")
     }
     
     func sortAxis(endPoints: inout ContiguousArray<EndPoint>, axis: Axis) {

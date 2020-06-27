@@ -24,6 +24,7 @@ class SceneManager {
             try engine.addSystem(system: CollisionSystem(priority: 0))
             
             try engine.addSystem(system: RotationSystem(priority: 1))
+            try engine.addSystem(system: MovableSystem(priority: 1))
         } catch let error {
             fatalError("\(error)")
         }

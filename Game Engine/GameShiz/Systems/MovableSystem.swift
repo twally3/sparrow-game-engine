@@ -1,13 +1,13 @@
 import MetalKit
 
-class RotationSystem: System {
+class MovableSystem: System {
     var priority: Int
     var entities: [Entity] = []
     var engine: ECS!
     
     var time: Float = 0
     
-    let family = Family.all(components: TransformComponent.self, RotatableComponent.self)
+    let family = Family.all(components: TransformComponent.self, MovableComponent.self)
     
     init(priority: Int) {
         self.priority = priority
@@ -16,9 +16,26 @@ class RotationSystem: System {
     func update(deltaTime: Float) {
         for entity in entities {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let rotatableComponent = entity.getComponent(componentClass: RotatableComponent.self) as! RotatableComponent
             
-            transformComponent.rotation += deltaTime * rotatableComponent.axis
+            if Keyboard.isKeyPressed(.upArrow) {
+                transformComponent.position.z -= deltaTime * 2
+            } else if Keyboard.isKeyPressed(.downArrow) {
+                transformComponent.position.z += deltaTime * 2
+            }
+            
+            if Keyboard.isKeyPressed(.leftArrow) {
+                transformComponent.position.x -= deltaTime * 2
+            } else if Keyboard.isKeyPressed(.rightArrow) {
+                transformComponent.position.x += deltaTime * 2
+            }
+            
+            if Keyboard.isKeyPressed(.q) {
+                transformComponent.position.y += deltaTime * 2
+            } else if Keyboard.isKeyPressed(.e) {
+                transformComponent.position.y -= deltaTime * 2
+            }
+            
+            time = time + deltaTime
         }
     }
     
