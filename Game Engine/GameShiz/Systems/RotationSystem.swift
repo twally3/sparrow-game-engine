@@ -18,7 +18,18 @@ class RotationSystem: System {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
             let rotatableComponent = entity.getComponent(componentClass: RotatableComponent.self) as! RotatableComponent
             
-            transformComponent.rotation += deltaTime * rotatableComponent.axis
+            if rotatableComponent.isMouseControlled {
+                if (Mouse.isMouseButtonPressed(button: .LEFT)) {
+                    let mouseInputComponent = entity.getComponent(componentClass: MouseInputComponent.self) as! MouseInputComponent
+                    transformComponent.rotation.x += deltaTime * mouseInputComponent.dy
+                    transformComponent.rotation.y += deltaTime * mouseInputComponent.dx
+                    
+                    print(Mouse.getDX())
+                    print(Mouse.getDX() * deltaTime)
+                }
+            } else {
+                transformComponent.rotation += deltaTime * rotatableComponent.axis
+            }
         }
     }
     

@@ -35,7 +35,8 @@ class RenderSystem: System {
             
             mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                 material: material,
-                                baseColourTextureType: renderComponent.textureType)
+                                baseColourTextureType: renderComponent.textureType,
+                                baseNormalMapTextureType: renderComponent.normalMapType )
         }
     }
     

@@ -12,16 +12,25 @@ class MouseInputSystem: System {
     }
     
     func update(deltaTime: Float) {
+        let right = Mouse.isMouseButtonPressed(button: .RIGHT)
+        let left = Mouse.isMouseButtonPressed(button: .LEFT)
+        let centre = Mouse.isMouseButtonPressed(button: .CENTER)
+        
+        let dx = Mouse.getDX()
+        let dy = Mouse.getDY()
+        
+        let dwheel = Mouse.getDWheel()
+        
         for entity in entities {
             let mouseComp = entity.getComponent(componentClass: MouseInputComponent.self) as! MouseInputComponent
             
-            mouseComp.right = Mouse.isMouseButtonPressed(button: .RIGHT)
-            mouseComp.left = Mouse.isMouseButtonPressed(button: .LEFT)
-            mouseComp.centre = Mouse.isMouseButtonPressed(button: .CENTER)
+            mouseComp.right = right
+            mouseComp.left = left
+            mouseComp.centre = centre
             
-            mouseComp.dx = Mouse.getDX()
-            mouseComp.dy = Mouse.getDY()
-            mouseComp.dwheel = Mouse.getDWheel()
+            mouseComp.dx = dx
+            mouseComp.dy = dy
+            mouseComp.dwheel = dwheel
         }
     }
     
