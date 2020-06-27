@@ -5,6 +5,9 @@ enum TextureTypes{
     case PartyPirateParot
     case Cruiser
     case SkyBox
+    
+    case MetalPlate_Diff
+    case MetalPlate_Normal
 }
 
 class TextureLibrary: Library<TextureTypes, MTLTexture> {
@@ -15,6 +18,9 @@ class TextureLibrary: Library<TextureTypes, MTLTexture> {
         _library.updateValue(Texture("cruiser", ext: "bmp", origin: .bottomLeft), forKey: .Cruiser)
         
         _library.updateValue(Texture(["left", "right", "up", "down", "back", "front"]), forKey: .SkyBox)
+        
+        _library.updateValue(Texture("metal_plate_diff"), forKey: .MetalPlate_Diff)
+        _library.updateValue(Texture("metal_plate_nor"), forKey: .MetalPlate_Normal)
     }
     
     override subscript(_ type: TextureTypes) -> MTLTexture? {

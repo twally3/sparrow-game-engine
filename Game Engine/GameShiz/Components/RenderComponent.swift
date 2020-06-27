@@ -1,6 +1,7 @@
 class RenderComponent: Component {
     public var mesh: Mesh
     public var textureType: TextureTypes
+    public var normalMapType: TextureTypes
     
     public var colour: SIMD4<Float>
     public var isLit: Bool
@@ -12,6 +13,7 @@ class RenderComponent: Component {
     
     init(mesh: Mesh,
          textureType: TextureTypes = .None,
+         normalMapType: TextureTypes = .None,
          colour: SIMD4<Float> = SIMD4<Float>(0.4, 0.4, 0.4, 1.0),
          isLit: Bool = true,
          ambient: SIMD3<Float> = SIMD3<Float>(repeating: 0.1),
@@ -21,6 +23,7 @@ class RenderComponent: Component {
         
         self.mesh = mesh
         self.textureType = textureType
+        self.normalMapType = normalMapType
         self.isLit = isLit
         self.colour = colour
         self.ambient = ambient
