@@ -43,10 +43,14 @@ class Entity {
         return componentBits
     }
     
-    public func getComponent(componentClass: Component.Type) -> Component? {
+    public func getComponent<T: Component>(componentClass: T.Type) -> T? {
         let componentTypeIndex = ComponentType.getIndex(for: componentClass)
-        
-        return components.get(at: componentTypeIndex)
+        return components.get(at: componentTypeIndex) as! T?
+    }
+    
+    public func getComponent<T: Component>() -> T? {
+        let componentTypeIndex = ComponentType.getIndex(for: T.self)
+        return components.get(at: componentTypeIndex) as! T?
     }
     
     private func onComponentAdded() {

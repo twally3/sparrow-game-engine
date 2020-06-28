@@ -18,18 +18,16 @@ class RenderSystem: System {
         renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.Less])
         
         for entity in entities {
-            let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let renderComponent = entity.getComponent(componentClass: RenderComponent.self) as! RenderComponent
-            
-            let mesh = renderComponent.mesh
+            let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
+            let renderComponent = entity.getComponent(componentClass: RenderComponent.self)!
             
             var modelConstants = ModelConstants(modelMatrix: transformComponent.modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
             
-            mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
-                                material: renderComponent.material,
-                                baseColourTextureType: renderComponent.textureType,
-                                baseNormalMapTextureType: renderComponent.normalMapType )
+            renderComponent.mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
+                                                material: renderComponent.material,
+                                                baseColourTextureType: renderComponent.textureType,
+                                                baseNormalMapTextureType: renderComponent.normalMapType)
         }
     }
     

@@ -13,8 +13,8 @@ class CameraSystem: System {
     
     func update(deltaTime: Float) {
         for entitiy in entities {
-            let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self) as! CameraComponent
+            let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self)!
+            let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self)!
             
             let qPitch = simd_quatf(angle: transformComponent.rotation.x, axis: SIMD3<Float>(x: 1, y: 0, z: 0))
             let qYaw = simd_quatf(angle: transformComponent.rotation.y, axis: SIMD3<Float>(x: 0, y: 1, z: 0))
@@ -38,8 +38,8 @@ class CameraSystem: System {
         if entities.count != 1 { return }
         let entitiy = entities[0]
         
-        let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-        let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self) as! CameraComponent
+        let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self)!
+        let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self)!
         
         var sceneConstants = SceneConstants(viewMatrix: cameraComponent.viewMatrix,
                                             projectionMatrix: cameraComponent.projectionMatrix,
