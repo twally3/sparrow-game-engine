@@ -15,11 +15,11 @@ class SkyboxSystem: System {
     
     func update(deltaTime: Float) {
         let camera = cameras[0]
-        let cameraComponent = camera.getComponent(componentClass: TransformComponent.self) as! TransformComponent
+        let cameraComponent = camera.getComponent(componentClass: TransformComponent.self)!
         let cameraPosition = cameraComponent.position
         
         for entity in entities {
-            let transform = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
+            let transform = entity.getComponent(componentClass: TransformComponent.self)!
             transform.position = cameraPosition
         }
     }
@@ -29,8 +29,8 @@ class SkyboxSystem: System {
         renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.SkyBox])
         
         for entity in entities {
-            let skyboxComponent = entity.getComponent(componentClass: SkyboxComponent.self) as! SkyboxComponent
-            let transform = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
+            let skyboxComponent = entity.getComponent(componentClass: SkyboxComponent.self)!
+            let transform = entity.getComponent(componentClass: TransformComponent.self)!
             
             let mesh = skyboxComponent.mesh
             

@@ -15,12 +15,12 @@ class RotationSystem: System {
     
     func update(deltaTime: Float) {
         for entity in entities {
-            let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let rotatableComponent = entity.getComponent(componentClass: RotatableComponent.self) as! RotatableComponent
+            let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
+            let rotatableComponent = entity.getComponent(componentClass: RotatableComponent.self)!
             
             if rotatableComponent.isMouseControlled {
                 if (Mouse.isMouseButtonPressed(button: .LEFT)) {
-                    let mouseInputComponent = entity.getComponent(componentClass: MouseInputComponent.self) as! MouseInputComponent
+                    guard let mouseInputComponent = entity.getComponent(componentClass: MouseInputComponent.self) else { continue }
                     transformComponent.rotation.x += deltaTime * mouseInputComponent.dy
                     transformComponent.rotation.y += deltaTime * mouseInputComponent.dx
                 }

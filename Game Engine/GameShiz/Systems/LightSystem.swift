@@ -19,8 +19,8 @@ class LightSystem: System {
         
         var lightDatas: [LightData] = []
         for entity in entities {
-            let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let lightComponent = entity.getComponent(componentClass: LightComponent.self) as! LightComponent
+            let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
+            let lightComponent = entity.getComponent(componentClass: LightComponent.self)!
             
             let lightData = LightData(position: transformComponent.position,
                                       colour: lightComponent.colour,

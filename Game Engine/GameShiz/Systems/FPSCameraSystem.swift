@@ -13,11 +13,11 @@ class FPSCameraSystem: System {
     
     func update(deltaTime: Float) {
         for entitiy in entities {
-            let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self) as! CameraComponent
-            let mouseInputComponent = entitiy.getComponent(componentClass: MouseInputComponent.self) as! MouseInputComponent
-            let keyboardInputComponent = entitiy.getComponent(componentClass: KeyboardInputComponent.self) as! KeyboardInputComponent
-            let fpsCameraComponent = entitiy.getComponent(componentClass: FPSCameraComponent.self) as! FPSCameraComponent
+            let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self)!
+            let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self)!
+            let mouseInputComponent = entitiy.getComponent(componentClass: MouseInputComponent.self)!
+            let keyboardInputComponent = entitiy.getComponent(componentClass: KeyboardInputComponent.self)!
+            let fpsCameraComponent = entitiy.getComponent(componentClass: FPSCameraComponent.self)!
                         
             // Keyboard
             var dx: Float = 0

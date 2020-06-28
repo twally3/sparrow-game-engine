@@ -15,7 +15,7 @@ class MovableSystem: System {
     
     func update(deltaTime: Float) {
         for entity in entities {
-            let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
+            let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
             
             if Keyboard.isKeyPressed(.upArrow) {
                 transformComponent.position.z -= deltaTime * 2

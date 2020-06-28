@@ -13,7 +13,7 @@ class KeyboardInputSystem: System {
     
     func update(deltaTime: Float) {
         for entity in entities {
-            let keyboardComp = entity.getComponent(componentClass: KeyboardInputComponent.self) as! KeyboardInputComponent
+            let keyboardComp = entity.getComponent(componentClass: KeyboardInputComponent.self)!
             
             keyboardComp.space = Keyboard.isKeyPressed(.space)
             keyboardComp.returnKey = Keyboard.isKeyPressed(.returnKey)

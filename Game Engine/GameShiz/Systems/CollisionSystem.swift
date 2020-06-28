@@ -7,8 +7,8 @@ struct EndPoint {
     
     public var value: SIMD3<Float> {
         let entity = self.box
-        let boundingBoxComponent = entity.getComponent(componentClass: BoundingBoxComponent.self) as! BoundingBoxComponent
-        let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
+        let boundingBoxComponent = entity.getComponent(componentClass: BoundingBoxComponent.self)!
+        let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
         
         let relativeScale = boundingBoxComponent.size * transformComponent.scale
         let origin = boundingBoxComponent.position + transformComponent.position
@@ -98,8 +98,8 @@ class CollisionSystem: System {
         renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.Less])
         
         for entity in entities {
-            let transformComponent = entity.getComponent(componentClass: TransformComponent.self) as! TransformComponent
-            let boundingBoxComponent = entity.getComponent(componentClass: BoundingBoxComponent.self) as! BoundingBoxComponent
+            let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
+            let boundingBoxComponent = entity.getComponent(componentClass: BoundingBoxComponent.self)!
             
             let material = Material(colour: SIMD4<Float>(0, 1, 0, 1),
                                     isLit: true,

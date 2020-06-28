@@ -23,7 +23,7 @@ class InstancedRenderSystem: System {
         renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.Less])
         
         for entity in entities {
-            let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self) as! InstancedTransformComponent
+            let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self)!
             let instanceCount = instancedTransformComponent.instanceCount
             
             if let modelConstantsBuffer = entityBuffers[entity] {
@@ -34,7 +34,7 @@ class InstancedRenderSystem: System {
                     pointer = pointer.advanced(by: 1)
                 }
                 
-                let renderComponent = entity.getComponent(componentClass: RenderComponent.self) as! RenderComponent
+                let renderComponent = entity.getComponent(componentClass: RenderComponent.self)!
                 
                 let mesh = renderComponent.mesh
                 mesh.setInstanceCount(instanceCount)
@@ -52,7 +52,7 @@ class InstancedRenderSystem: System {
         if family.matches(entity: entity) {
             self.entities = engine.getEntities(for: family)
             
-            let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self) as! InstancedTransformComponent
+            guard let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self) else { return }
             let modelConstantsBuffer = Engine.device.makeBuffer(length: ModelConstants.stride(instancedTransformComponent.instanceCount), options: [])
             entityBuffers[entity] = modelConstantsBuffer
         }
@@ -71,7 +71,7 @@ class InstancedRenderSystem: System {
         self.engine = engine
         
         for entity in entities {
-            let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self) as! InstancedTransformComponent
+            guard let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self) else { continue }
             let modelConstantsBuffer = Engine.device.makeBuffer(length: ModelConstants.stride(instancedTransformComponent.instanceCount), options: [])
             entityBuffers[entity] = modelConstantsBuffer
         }

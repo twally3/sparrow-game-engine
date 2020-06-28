@@ -22,7 +22,7 @@ class MouseInputSystem: System {
         let dwheel = Mouse.getDWheel()
         
         for entity in entities {
-            let mouseComp = entity.getComponent(componentClass: MouseInputComponent.self) as! MouseInputComponent
+            let mouseComp = entity.getComponent(componentClass: MouseInputComponent.self)!
             
             mouseComp.right = right
             mouseComp.left = left
