@@ -6,19 +6,13 @@ class SandboxScene: Scene {
             try cube.add(component: MovableComponent())
             try cube.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
             try cube.add(component: TransformComponent(position: SIMD3<Float>(-2, 0, 0), scale: SIMD3<Float>(1, 1, 1)))
-            var material = Material()
-            material.isLit = false
-            material.colour = SIMD4<Float>(1, 1, 0, 1)
-            try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: material))
+            try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: Material(colour: SIMD4<Float>(1, 1, 0, 1))))
             try engine.addEntity(entity: cube)
 
             let cube2 = engine.createEntity()
             try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
             try cube2.add(component: TransformComponent(position: SIMD3<Float>(1, 0, 0), scale: SIMD3<Float>(repeating: 0.25)))
-            var material2 = Material()
-            material2.isLit = false
-            material2.colour = SIMD4<Float>(1, 0, 1, 1)
-            try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: material2))
+            try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: Material(colour: SIMD4<Float>(1, 0, 1, 1))))
             try engine.addEntity(entity: cube2)
 
 //            let chest = engine.createEntity()
