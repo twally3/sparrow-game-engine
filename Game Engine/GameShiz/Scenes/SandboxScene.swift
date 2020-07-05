@@ -36,7 +36,7 @@ class SandboxScene: Scene {
             try quad.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .MetalPlate_Diff, normalMapType: .MetalPlate_Normal))
             try quad.add(component: RotatableComponent(isMouseControlled: true))
             try quad.add(component: MouseInputComponent())
-            try engine.addEntity(entity: quad)
+//            try engine.addEntity(entity: quad)
             
             let skybox = engine.createEntity()
             try skybox.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 1000)))

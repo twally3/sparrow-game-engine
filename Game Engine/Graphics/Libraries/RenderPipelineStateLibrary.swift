@@ -4,6 +4,7 @@ enum RenderPipelineStateTypes {
     case Basic
     case Instanced
     case SkyBox
+    case Particle
 }
 
 class RenderPipelineStateLibrary: Library<RenderPipelineStateTypes, MTLRenderPipelineState> {
@@ -13,6 +14,7 @@ class RenderPipelineStateLibrary: Library<RenderPipelineStateTypes, MTLRenderPip
         _library.updateValue(Basic_RenderPipelineState(), forKey: .Basic)
         _library.updateValue(Instanced_RenderPipelineState() , forKey: .Instanced)
         _library.updateValue(SkyBox_RenderPipelineState(), forKey: .SkyBox)
+        _library.updateValue(Particle_RenderPipelineState(), forKey: .Particle)
     }
     
     override subscript(_ type: RenderPipelineStateTypes) -> MTLRenderPipelineState {
@@ -75,6 +77,31 @@ class SkyBox_RenderPipelineState: RenderPipelineState {
         
         renderPipelineDescriptor.vertexFunction = Graphics.shaders[.SkyBox_Vertex]
         renderPipelineDescriptor.fragmentFunction = Graphics.shaders[.SkyBox_Fragment]
+        
+        super.init(renderPipelineDescriptor: renderPipelineDescriptor)
+    }
+}
+
+class Particle_RenderPipelineState: RenderPipelineState {
+    init() {
+        let renderPipelineDescriptor = MTLRenderPipelineDescriptor()
+        renderPipelineDescriptor.label = "Particle Render Pipeline Descriptor"
+
+        renderPipelineDescriptor.colorAttachments[0].pixelFormat = Preferences.mainPixelFormat
+        
+        renderPipelineDescriptor.colorAttachments[0].isBlendingEnabled = true
+        renderPipelineDescriptor.colorAttachments[0].alphaBlendOperation = .add
+        renderPipelineDescriptor.colorAttachments[0].rgbBlendOperation = .add
+        renderPipelineDescriptor.colorAttachments[0].sourceRGBBlendFactor = .sourceAlpha
+        renderPipelineDescriptor.colorAttachments[0].sourceAlphaBlendFactor = .sourceAlpha
+        renderPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor = .oneMinusSourceAlpha
+        renderPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor = .oneMinusSourceAlpha
+        
+        renderPipelineDescriptor.depthAttachmentPixelFormat = Preferences.mainDepthPixelFormat
+        renderPipelineDescriptor.vertexDescriptor = Graphics.vertexDescriptors[.Basic]
+        
+        renderPipelineDescriptor.vertexFunction = Graphics.shaders[.Basic_Vertex]
+        renderPipelineDescriptor.fragmentFunction = Graphics.shaders[.Basic_Fragment]
         
         super.init(renderPipelineDescriptor: renderPipelineDescriptor)
     }

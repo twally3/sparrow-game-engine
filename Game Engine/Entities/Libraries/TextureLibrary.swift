@@ -8,6 +8,8 @@ enum TextureTypes{
     
     case MetalPlate_Diff
     case MetalPlate_Normal
+    
+    case Weed
 }
 
 class TextureLibrary: Library<TextureTypes, MTLTexture> {
@@ -21,6 +23,8 @@ class TextureLibrary: Library<TextureTypes, MTLTexture> {
         
         _library.updateValue(Texture("metal_plate_diff"), forKey: .MetalPlate_Diff)
         _library.updateValue(Texture("metal_plate_nor"), forKey: .MetalPlate_Normal)
+        
+        _library.updateValue(Texture("weed"), forKey: .Weed)
     }
     
     override subscript(_ type: TextureTypes) -> MTLTexture? {

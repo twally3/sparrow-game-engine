@@ -11,6 +11,10 @@ enum ShaderTypes {
     // Skybox
     case SkyBox_Vertex
     case SkyBox_Fragment
+    
+    // Particle
+    case Particle_Vertex
+    case Particle_Fragment
 }
 
 class ShaderLibrary: Library<ShaderTypes, MTLFunction> {
@@ -40,6 +44,15 @@ class ShaderLibrary: Library<ShaderTypes, MTLFunction> {
             Shader(name: "SkyBox Fragment Shader", functionName: "skybox_fragment_shader"),
             forKey: .SkyBox_Fragment
         )
+        
+//        _library.updateValue(
+//            Shader(name: "Particle Vertex Shader", functionName: "particle_vertex_shader"),
+//            forKey: .Particle_Vertex
+//        )
+//        _library.updateValue(
+//            Shader(name: "Particle Fragment Shader", functionName: "particle_fragment_shader"),
+//            forKey: .Particle_Fragment
+//        )
     }
     
     override subscript(_ type: ShaderTypes)->MTLFunction {

@@ -95,6 +95,12 @@ extension matrix_float4x4 {
         self = matrix_multiply(self, result)
     }
     
+    mutating func rotate(rotation: SIMD3<Float>) {
+        self.rotate(angle: rotation.x, axis: X_AXIS)
+        self.rotate(angle: rotation.y, axis: Y_AXIS)
+        self.rotate(angle: rotation.z, axis: Z_AXIS)
+    }
+    
     static func perspective(degreesFov: Float, aspectRatio: Float, near: Float, far: Float) -> matrix_float4x4 {
         let fov = degreesFov.toRadians
         
