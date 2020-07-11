@@ -96,12 +96,14 @@ class Particle_RenderPipelineState: RenderPipelineState {
         renderPipelineDescriptor.colorAttachments[0].sourceAlphaBlendFactor = .sourceAlpha
         renderPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor = .oneMinusSourceAlpha
         renderPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor = .oneMinusSourceAlpha
+//        renderPipelineDescriptor.colorAttachments[0].destinationRGBBlendFactor = .one
+//        renderPipelineDescriptor.colorAttachments[0].destinationAlphaBlendFactor = .one
         
         renderPipelineDescriptor.depthAttachmentPixelFormat = Preferences.mainDepthPixelFormat
         renderPipelineDescriptor.vertexDescriptor = Graphics.vertexDescriptors[.Basic]
         
-        renderPipelineDescriptor.vertexFunction = Graphics.shaders[.Basic_Vertex]
-        renderPipelineDescriptor.fragmentFunction = Graphics.shaders[.Basic_Fragment]
+        renderPipelineDescriptor.vertexFunction = Graphics.shaders[.Particle_Vertex]
+        renderPipelineDescriptor.fragmentFunction = Graphics.shaders[.Particle_Fragment]
         
         super.init(renderPipelineDescriptor: renderPipelineDescriptor)
     }

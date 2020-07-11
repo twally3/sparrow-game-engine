@@ -34,6 +34,7 @@ extension UInt32: sizeable {}
 extension SIMD2: sizeable where Scalar == Float {}
 extension SIMD3: sizeable where Scalar == Float {}
 extension SIMD4: sizeable where Scalar == Float {}
+extension Float: sizeable {}
 
 struct ModelConstants: sizeable {
     var modelMatrix = matrix_identity_float4x4

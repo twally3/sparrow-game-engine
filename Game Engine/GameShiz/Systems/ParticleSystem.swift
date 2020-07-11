@@ -9,10 +9,10 @@ class ParticleSystem: System {
     
     let family = Family.all(components: TransformComponent.self, ParticleComponent.self, RenderComponent.self)
     
-    let pps: Float = 50
-    let averageSpeed: Float = 1 //25
-    let averageLifeLength: Float = 4
-    let averageScale: Float = 1
+    let pps: Float = 5
+    let averageSpeed: Float = 0.5 //25
+    let averageLifeLength: Float = 0.5
+    let averageScale: Float = 10
     
     let speedError: Float = 0
     let lifeError: Float = 0
@@ -22,6 +22,8 @@ class ParticleSystem: System {
     let directionDeviation: Float = 0//0.1
     
     let randomRotation: Bool = true
+    
+    let textureRows: Int = 8
     
     init(priority: Int) {
         self.priority = priority
@@ -78,7 +80,7 @@ class ParticleSystem: System {
         try! particle.add(component: TransformComponent(position: centre,
                                                         rotation: SIMD3<Float>(0, 0, generateRotation()),
                                                         scale: SIMD3<Float>(repeating: 0.05) * scale))
-        try! particle.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Weed))
+        try! particle.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Fire))
         try! particle.add(component: ParticleComponent(velocity: velocity, gravityEffect: 10, lifeLength: lifeLength))
         try! engine.addEntity(entity: particle)
     }
@@ -102,7 +104,7 @@ class ParticleSystem: System {
     
     func render(renderCommandEncoder: MTLRenderCommandEncoder) {
         renderCommandEncoder.setRenderPipelineState(Graphics.renderPipelineStates[.Particle])
-        renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.Less])
+        renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.Particle])
         
         let cameras = engine.getEntities(for: Family.all(components: CameraComponent.self))
         let camera = cameras[0]
@@ -112,30 +114,62 @@ class ParticleSystem: System {
         for entity in entities {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
             let renderComponent = entity.getComponent(componentClass: RenderComponent.self)!
+            let particleComponent = entity.getComponent(componentClass: ParticleComponent.self)!
             
-            var modelMatrix = matrix_identity_float4x4
-            modelMatrix.translate(direction: transformComponent.position)
-            
-            var result = matrix_identity_float4x4
-            result.columns = (
-                SIMD4<Float>(viewMatrix.columns.0.x, modelMatrix.columns.1.x, viewMatrix.columns.2.x, 0.0),
-                SIMD4<Float>(viewMatrix.columns.0.y, modelMatrix.columns.1.y, viewMatrix.columns.2.y, 0.0),
-                SIMD4<Float>(viewMatrix.columns.0.z, modelMatrix.columns.1.z, viewMatrix.columns.2.z, 0.0),
-                SIMD4<Float>(0.0,  0.0,  0.0,  1.0)
-            )
-            modelMatrix = matrix_multiply(modelMatrix, result)
-            
-            modelMatrix.rotate(angle: transformComponent.rotation.z, axis: Z_AXIS)
-            modelMatrix.scale(axis: transformComponent.scale)
+            let modelMatrix = calculateModelMatrix(transformComponent: transformComponent, viewMatrix: viewMatrix)
             
             var modelConstants = ModelConstants(modelMatrix: modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
+            
+            updateTextureCoordInfo(renderCommandEncoder: renderCommandEncoder, particleComponent: particleComponent)
             
             renderComponent.mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                                 material: renderComponent.material,
                                                 baseColourTextureType: renderComponent.textureType,
                                                 baseNormalMapTextureType: renderComponent.normalMapType)
         }
+    }
+    
+    func updateTextureCoordInfo(renderCommandEncoder: MTLRenderCommandEncoder, particleComponent: ParticleComponent) {
+        let lifeFactor = particleComponent.elapsedTime / particleComponent.lifeLength
+        let stageCount = textureRows * textureRows
+        let atlasProgression = lifeFactor * Float(stageCount)
+        let index1 = Int(floor(atlasProgression))
+        let index2 = index1 < stageCount - 1 ? index1 + 1 : index1
+        let blend = atlasProgression.truncatingRemainder(dividingBy: 1)
+        
+        var offset1 = setTextureOffset(index: index1)
+        var offset2 = setTextureOffset(index: index2)
+        var textCoordInfo = SIMD2<Float>(Float(textureRows), blend)
+
+        renderCommandEncoder.setVertexBytes(&offset1, length: SIMD2<Float>.size, index: 3)
+        renderCommandEncoder.setVertexBytes(&offset2, length: SIMD2<Float>.size, index: 4)
+        renderCommandEncoder.setVertexBytes(&textCoordInfo, length: SIMD2<Float>.size, index: 5)
+    }
+    
+    func setTextureOffset(index: Int) -> SIMD2<Float> {
+        let column = index % textureRows
+        let row = index / textureRows
+        return SIMD2<Float>(Float(column) / Float(textureRows), Float(row) / Float(textureRows))
+    }
+    
+    private func calculateModelMatrix(transformComponent: TransformComponent, viewMatrix: simd_float4x4) -> simd_float4x4 {
+        var modelMatrix = matrix_identity_float4x4
+        modelMatrix.translate(direction: transformComponent.position)
+        
+        var result = matrix_identity_float4x4
+        result.columns = (
+            SIMD4<Float>(viewMatrix.columns.0.x, modelMatrix.columns.1.x, viewMatrix.columns.2.x, 0.0),
+            SIMD4<Float>(viewMatrix.columns.0.y, modelMatrix.columns.1.y, viewMatrix.columns.2.y, 0.0),
+            SIMD4<Float>(viewMatrix.columns.0.z, modelMatrix.columns.1.z, viewMatrix.columns.2.z, 0.0),
+            SIMD4<Float>(0.0,  0.0,  0.0,  1.0)
+        )
+        modelMatrix = matrix_multiply(modelMatrix, result)
+        
+        modelMatrix.rotate(angle: transformComponent.rotation.z, axis: Z_AXIS)
+        modelMatrix.scale(axis: transformComponent.scale)
+        
+        return modelMatrix
     }
     
     func onEntityAdded(entity: Entity) {

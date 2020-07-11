@@ -45,14 +45,14 @@ class ShaderLibrary: Library<ShaderTypes, MTLFunction> {
             forKey: .SkyBox_Fragment
         )
         
-//        _library.updateValue(
-//            Shader(name: "Particle Vertex Shader", functionName: "particle_vertex_shader"),
-//            forKey: .Particle_Vertex
-//        )
-//        _library.updateValue(
-//            Shader(name: "Particle Fragment Shader", functionName: "particle_fragment_shader"),
-//            forKey: .Particle_Fragment
-//        )
+        _library.updateValue(
+            Shader(name: "Particle Vertex Shader", functionName: "particle_vertex_shader"),
+            forKey: .Particle_Vertex
+        )
+        _library.updateValue(
+            Shader(name: "Particle Fragment Shader", functionName: "particle_fragment_shader"),
+            forKey: .Particle_Fragment
+        )
     }
     
     override subscript(_ type: ShaderTypes)->MTLFunction {

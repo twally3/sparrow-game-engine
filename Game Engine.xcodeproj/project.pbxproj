@@ -13,6 +13,18 @@
 		50040FA624B20D48001E4FEE /* ParticleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50040FA524B20D48001E4FEE /* ParticleComponent.swift */; };
 		50040FA824B22836001E4FEE /* weed.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FA724B22836001E4FEE /* weed.png */; };
 		50040FA924B22836001E4FEE /* weed.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FA724B22836001E4FEE /* weed.png */; };
+		50040FB024B273F9001E4FEE /* cosmic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAB24B273F9001E4FEE /* cosmic.png */; };
+		50040FB124B273F9001E4FEE /* cosmic.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAB24B273F9001E4FEE /* cosmic.png */; };
+		50040FB224B273F9001E4FEE /* particleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAC24B273F9001E4FEE /* particleAtlas.png */; };
+		50040FB324B273F9001E4FEE /* particleAtlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAC24B273F9001E4FEE /* particleAtlas.png */; };
+		50040FB424B273F9001E4FEE /* particleStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAD24B273F9001E4FEE /* particleStar.png */; };
+		50040FB524B273F9001E4FEE /* particleStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAD24B273F9001E4FEE /* particleStar.png */; };
+		50040FB624B273F9001E4FEE /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAE24B273F9001E4FEE /* smoke.png */; };
+		50040FB724B273F9001E4FEE /* smoke.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAE24B273F9001E4FEE /* smoke.png */; };
+		50040FB824B273F9001E4FEE /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAF24B273F9001E4FEE /* fire.png */; };
+		50040FB924B273F9001E4FEE /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 50040FAF24B273F9001E4FEE /* fire.png */; };
+		50040FBE24B276CC001E4FEE /* ParticleShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 50040FBD24B276CC001E4FEE /* ParticleShaders.metal */; };
+		50040FBF24B276CC001E4FEE /* ParticleShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 50040FBD24B276CC001E4FEE /* ParticleShaders.metal */; };
 		501BB90E244F56F9007797BA /* chest.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90A244F56F8007797BA /* chest.mtl */; };
 		501BB90F244F56F9007797BA /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90B244F56F8007797BA /* chest.obj */; };
 		501BB910244F56F9007797BA /* Chest_Wood_Base_Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90C244F56F9007797BA /* Chest_Wood_Base_Color.png */; };
@@ -222,6 +234,12 @@
 		50040FA324B20D2E001E4FEE /* ParticleSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
 		50040FA524B20D48001E4FEE /* ParticleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleComponent.swift; sourceTree = "<group>"; };
 		50040FA724B22836001E4FEE /* weed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weed.png; sourceTree = "<group>"; };
+		50040FAB24B273F9001E4FEE /* cosmic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cosmic.png; sourceTree = "<group>"; };
+		50040FAC24B273F9001E4FEE /* particleAtlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleAtlas.png; sourceTree = "<group>"; };
+		50040FAD24B273F9001E4FEE /* particleStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleStar.png; sourceTree = "<group>"; };
+		50040FAE24B273F9001E4FEE /* smoke.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smoke.png; sourceTree = "<group>"; };
+		50040FAF24B273F9001E4FEE /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
+		50040FBD24B276CC001E4FEE /* ParticleShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ParticleShaders.metal; sourceTree = "<group>"; };
 		501BB90A244F56F8007797BA /* chest.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.mtl; sourceTree = "<group>"; };
 		501BB90B244F56F8007797BA /* chest.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.obj; sourceTree = "<group>"; };
 		501BB90C244F56F9007797BA /* Chest_Wood_Base_Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chest_Wood_Base_Color.png; sourceTree = "<group>"; };
@@ -364,6 +382,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50040FAA24B273E2001E4FEE /* particle_textures */ = {
+			isa = PBXGroup;
+			children = (
+				50040FAB24B273F9001E4FEE /* cosmic.png */,
+				50040FAF24B273F9001E4FEE /* fire.png */,
+				50040FAC24B273F9001E4FEE /* particleAtlas.png */,
+				50040FAD24B273F9001E4FEE /* particleStar.png */,
+				50040FAE24B273F9001E4FEE /* smoke.png */,
+			);
+			path = particle_textures;
+			sourceTree = "<group>";
+		};
 		50215E1823A7E38B00B0C166 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +451,7 @@
 				50215E2E23A7F20700B0C166 /* InstancedShaders.metal */,
 				503B90DD23AFCA7600F30DBE /* Lighting.metal */,
 				508F0AEE24701FED00121CD3 /* SkyBoxShaders.metal */,
+				50040FBD24B276CC001E4FEE /* ParticleShaders.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -428,6 +459,7 @@
 		50215E3423A80B2100B0C166 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				50040FAA24B273E2001E4FEE /* particle_textures */,
 				50040FA724B22836001E4FEE /* weed.png */,
 				5092F0A024A780FB005B9997 /* quad */,
 				5092F09F24A780EE005B9997 /* metal_plate */,
@@ -879,8 +911,10 @@
 				5092F08C24A780D3005B9997 /* normal_example.png in Resources */,
 				501BB90F244F56F9007797BA /* chest.obj in Resources */,
 				50215E4D23A8365900B0C166 /* sphere.obj in Resources */,
+				50040FB824B273F9001E4FEE /* fire.png in Resources */,
 				50040FA824B22836001E4FEE /* weed.png in Resources */,
 				50215E4123A8250700B0C166 /* cruiser.obj in Resources */,
+				50040FB024B273F9001E4FEE /* cosmic.png in Resources */,
 				5092F08524A780C8005B9997 /* metal_plate_diff.png in Resources */,
 				5092F08A24A780D3005B9997 /* quad.mtl in Resources */,
 				501BB910244F56F9007797BA /* Chest_Wood_Base_Color.png in Resources */,
@@ -888,14 +922,17 @@
 				5092F08E24A780D3005B9997 /* quad.obj in Resources */,
 				501BB90E244F56F9007797BA /* chest.mtl in Resources */,
 				505D1A3723A2F4EA00813A05 /* Assets.xcassets in Resources */,
+				50040FB424B273F9001E4FEE /* particleStar.png in Resources */,
 				508F0AE92470162F00121CD3 /* PartyPirateParot.png in Resources */,
 				50215E4323A8250700B0C166 /* cruiser.mtl in Resources */,
 				5092F08624A780C8005B9997 /* metal_plate_nor.png in Resources */,
 				5092F09C24A780E0005B9997 /* well-diff.png in Resources */,
+				50040FB624B273F9001E4FEE /* smoke.png in Resources */,
 				508F0B012470251A00121CD3 /* down.png in Resources */,
 				5092F09824A780E0005B9997 /* well.mtl in Resources */,
 				505D1A3A23A2F4EA00813A05 /* Main.storyboard in Resources */,
 				5037718C244E423900DE5076 /* TheSuzannes.obj in Resources */,
+				50040FB224B273F9001E4FEE /* particleAtlas.png in Resources */,
 				501BB911244F56F9007797BA /* Chest_Metal_Base_Color.png in Resources */,
 				508F0B052470251A00121CD3 /* up.png in Resources */,
 				5092F09A24A780E0005B9997 /* well.obj in Resources */,
@@ -933,19 +970,24 @@
 				508F0A952470133800121CD3 /* Assets.xcassets in Resources */,
 				5092F09024A780D8005B9997 /* metal_plate_diff.png in Resources */,
 				5092F09924A780E0005B9997 /* well.mtl in Resources */,
+				50040FB724B273F9001E4FEE /* smoke.png in Resources */,
 				508F0AAD2470141500121CD3 /* chest.obj in Resources */,
 				508F0AB02470141D00121CD3 /* sphere.obj in Resources */,
+				50040FB324B273F9001E4FEE /* particleAtlas.png in Resources */,
 				508F0AB12470142400121CD3 /* cruiser.bmp in Resources */,
 				508F0AAA2470140E00121CD3 /* Chest_Metal_Base_Color.png in Resources */,
 				508F0AEA2470162F00121CD3 /* PartyPirateParot.png in Resources */,
+				50040FB124B273F9001E4FEE /* cosmic.png in Resources */,
 				5092F08D24A780D3005B9997 /* normal_example.png in Resources */,
 				508F0B062470251A00121CD3 /* up.png in Resources */,
+				50040FB924B273F9001E4FEE /* fire.png in Resources */,
 				5092F09B24A780E0005B9997 /* well.obj in Resources */,
 				508F0AAC2470141200121CD3 /* chest.mtl in Resources */,
 				508F0B0A2470251A00121CD3 /* back.png in Resources */,
 				508F0B0C2470251A00121CD3 /* front.png in Resources */,
 				508F0B042470251A00121CD3 /* right.png in Resources */,
 				508F0AAB2470141000121CD3 /* Chest_Wood_Base_Color.png in Resources */,
+				50040FB524B273F9001E4FEE /* particleStar.png in Resources */,
 				508F0B022470251A00121CD3 /* down.png in Resources */,
 				508F0AAF2470141A00121CD3 /* TheSuzannes.mtl in Resources */,
 				50040FA924B22836001E4FEE /* weed.png in Resources */,
@@ -1010,6 +1052,7 @@
 				50215E3823A80D0E00B0C166 /* TextureLibrary.swift in Sources */,
 				50B46812246D8FD900735E8C /* FamilyManager.swift in Sources */,
 				50B46819246D8FD900735E8C /* ECS.swift in Sources */,
+				50040FBE24B276CC001E4FEE /* ParticleShaders.metal in Sources */,
 				505D1A3323A2F4E800813A05 /* AppDelegate.swift in Sources */,
 				50B46829246DA0E900735E8C /* RenderComponent.swift in Sources */,
 				50215E1F23A7E43B00B0C166 /* Entities.swift in Sources */,
@@ -1078,6 +1121,7 @@
 				508F0A8E2470133700121CD3 /* SceneDelegate.swift in Sources */,
 				508F0ACA2470144E00121CD3 /* FPSCameraComponent.swift in Sources */,
 				508F0ADD2470147500121CD3 /* Family.swift in Sources */,
+				50040FBF24B276CC001E4FEE /* ParticleShaders.metal in Sources */,
 				508F0AD72470147200121CD3 /* Event.swift in Sources */,
 				508F0AE12470148000121CD3 /* Renderer.swift in Sources */,
 				508F0AF92470246E00121CD3 /* SkyboxComponent.swift in Sources */,

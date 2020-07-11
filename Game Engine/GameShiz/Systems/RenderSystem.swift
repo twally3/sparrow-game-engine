@@ -22,7 +22,7 @@ class RenderSystem: System {
             let renderComponent = entity.getComponent(componentClass: RenderComponent.self)!
             
             // TODO: I shouldnt be here, delete me!
-            if let particleComponent = entity.getComponent(componentClass: ParticleComponent.self) { continue }
+            if let _ = entity.getComponent(componentClass: ParticleComponent.self) { continue }
             
             var modelConstants = ModelConstants(modelMatrix: transformComponent.modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)

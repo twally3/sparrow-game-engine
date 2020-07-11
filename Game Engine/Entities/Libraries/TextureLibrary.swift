@@ -10,6 +10,8 @@ enum TextureTypes{
     case MetalPlate_Normal
     
     case Weed
+    case Particle_Atlas
+    case Particle_Fire
 }
 
 class TextureLibrary: Library<TextureTypes, MTLTexture> {
@@ -25,6 +27,8 @@ class TextureLibrary: Library<TextureTypes, MTLTexture> {
         _library.updateValue(Texture("metal_plate_nor"), forKey: .MetalPlate_Normal)
         
         _library.updateValue(Texture("weed"), forKey: .Weed)
+        _library.updateValue(Texture("particleAtlas"), forKey: .Particle_Atlas)
+        _library.updateValue(Texture("fire"), forKey: .Particle_Fire)
     }
     
     override subscript(_ type: TextureTypes) -> MTLTexture? {
