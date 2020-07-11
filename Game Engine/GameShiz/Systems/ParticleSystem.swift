@@ -146,15 +146,17 @@ class ParticleSystem: System {
         let atlasProgression = lifeFactor * Float(stageCount)
         let index1 = Int(floor(atlasProgression))
         let index2 = index1 < stageCount - 1 ? index1 + 1 : index1
-        let blend = atlasProgression.truncatingRemainder(dividingBy: 1)
         
-        var offset1 = setTextureOffset(index: index1)
-        var offset2 = setTextureOffset(index: index2)
-        var textCoordInfo = SIMD2<Float>(Float(textureRows), blend)
+        let offset1 = setTextureOffset(index: index1)
+        let offset2 = setTextureOffset(index: index2)
+        
+        var offset = SIMD4<Float>(offset1.x, offset1.y, offset2.x, offset2.y)
+        var numberOfRows = Float(textureRows)
+        var blendFactor = atlasProgression.truncatingRemainder(dividingBy: 1)
 
-        renderCommandEncoder.setVertexBytes(&offset1, length: SIMD2<Float>.size, index: 3)
-        renderCommandEncoder.setVertexBytes(&offset2, length: SIMD2<Float>.size, index: 4)
-        renderCommandEncoder.setVertexBytes(&textCoordInfo, length: SIMD2<Float>.size, index: 5)
+        renderCommandEncoder.setVertexBytes(&offset, length: SIMD4<Float>.size, index: 3)
+        renderCommandEncoder.setVertexBytes(&numberOfRows, length: Float.size, index: 4)
+        renderCommandEncoder.setVertexBytes(&blendFactor, length: SIMD2<Float>.size, index: 5)
     }
     
     func setTextureOffset(index: Int) -> SIMD2<Float> {

@@ -13,36 +13,22 @@ struct ParticleRasterizerData {
 vertex ParticleRasterizerData particle_vertex_shader(const VertexIn vIn [[ stage_in ]],
                                                      constant SceneConstants &sceneConstants [[ buffer(1) ]],
                                                      constant ModelConstants &modelConstants [[ buffer(2) ]],
-                                                     constant float2 &texOffset1 [[ buffer(3) ]],
-                                                     constant float2 &texOffset2 [[ buffer(4) ]],
-                                                     constant float2 &texCoordInfo [[ buffer(5) ]]) {
+                                                     constant float4 &texOffset [[ buffer(3) ]],
+                                                     constant float &numberOfRows [[ buffer(4) ]],
+                                                     constant float &blendFactor [[ buffer(5) ]]) {
     ParticleRasterizerData rd;
     
     float4 worldPosition = modelConstants.modelMatrix * float4(vIn.position, 1);
     
     rd.position = sceneConstants.projectionMatrix * sceneConstants.viewMatrix * worldPosition;
     
-//    float2 textureCoords = vIn.position.xy + float2(0.5, 0.5);
-    float2 textureCoords = vIn.textureCoordinate;// + float2(0.5, 0.5);
+    float2 textureCoords = vIn.textureCoordinate;
     textureCoords.y = 1.0 - textureCoords.y;
-    textureCoords /= texCoordInfo.x;
+    textureCoords /= numberOfRows;
     
-    rd.texCoords1 = textureCoords + texOffset1;
-    rd.texCoords2 =  textureCoords + texOffset2;
-    rd.blend = texCoordInfo.y;
-    
-//    rd.texCoords1 = vIn.textureCoordinate;
-//    rd.texCoords2 = vIn.textureCoordinate;
-//    rd.blend = 0.5;
-    
-//    rd.colour = vIn.colour;
-//    rd.textureCoordinate = vIn.textureCoordinate;
-//    rd.worldPosition = worldPosition.xyz;
-//    rd.toCameraVector = sceneConstants.cameraPosition - worldPosition.xyz;
-//
-//    rd.surfaceNormal = (modelConstants.modelMatrix * float4(vIn.normal, 0.0)).xyz;
-//    rd.surfaceTangent = (modelConstants.modelMatrix * float4(vIn.tangent, 0.0)).xyz;
-//    rd.surfaceBitangent = (modelConstants.modelMatrix * float4(vIn.bitangent, 0.0)).xyz;
+    rd.texCoords1 = textureCoords + texOffset.xy;
+    rd.texCoords2 =  textureCoords + texOffset.zw;
+    rd.blend = blendFactor;
     
     return rd;
 }
@@ -55,14 +41,6 @@ fragment half4 particle_fragment_shader(ParticleRasterizerData rd [[ stage_in ]]
                                      texture2d<float> baseColourMap [[ texture(0) ]],
                                      texture2d<float> baseNormalMap [[ texture(1) ]]) {
     
-//    float2 textCoord = rd.textureCoordinate;
-//
-//    float4 colour = material.colour;
-//    if (!is_null_texture(baseColourMap)) {
-//        colour = baseColourMap.sample(sampler2d, textCoord);
-//    }
-//
-//    return half4(1, 1, 1, 1);
     
     float4 colour1 = baseColourMap.sample(sampler2d, rd.texCoords1);
     float4 colour2 = baseColourMap.sample(sampler2d, rd.texCoords2);
