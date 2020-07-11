@@ -32,6 +32,12 @@ class ParticleSystem: System {
     func update(deltaTime: Float) {
         generateParticles(systemCenter: SIMD3<Float>(0, 0, 0), deltaTime: deltaTime)
         
+        // TODO: Move me so I dont get fetched each time
+        let cameras = engine.getEntities(for: Family.all(components: CameraComponent.self))
+        let camera = cameras[0]
+        let cameraTransformComponent = camera.getComponent(componentClass: TransformComponent.self)!
+        let cameraPosition = cameraTransformComponent.position
+        
         for entity in entities {
             let particleComponent = entity.getComponent(componentClass: ParticleComponent.self)!
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
@@ -40,11 +46,14 @@ class ParticleSystem: System {
             let change = SIMD3<Float>(particleComponent.velocity) * deltaTime
             transformComponent.position += change
             particleComponent.elapsedTime += deltaTime
+            particleComponent.distance = length_squared(cameraPosition - transformComponent.position)
             
             if particleComponent.elapsedTime >= particleComponent.lifeLength {
                 try! engine.removeEntity(entity: entity)
             }
         }
+        
+        insertionSort(list: &entities)
     }
     
     private func generateParticles(systemCenter: SIMD3<Float>, deltaTime: Float) {
@@ -106,6 +115,7 @@ class ParticleSystem: System {
         renderCommandEncoder.setRenderPipelineState(Graphics.renderPipelineStates[.Particle])
         renderCommandEncoder.setDepthStencilState(Graphics.depthStencilStates[.Particle])
         
+        // TODO: Move me so I dont get fetched each time
         let cameras = engine.getEntities(for: Family.all(components: CameraComponent.self))
         let camera = cameras[0]
         let cameraComponent = camera.getComponent(componentClass: CameraComponent.self)!
@@ -187,5 +197,23 @@ class ParticleSystem: System {
     func onAddedToEngine(engine: ECS) {
         self.entities = engine.getEntities(for: family)
         self.engine = engine
+    }
+    
+    private func insertionSort(list: inout [Entity]) {
+        if list.count == 0 || list.count == 1 { return }
+        
+        for j in 1..<list.count {
+            let keyElement = list[j]
+            let key = keyElement.getComponent(componentClass: ParticleComponent.self)!.distance
+
+            var i = j - 1
+
+            while i >= 0 && list[i].getComponent(componentClass: ParticleComponent.self)!.distance < key {
+                list[i + 1] = list[i]
+                i = i - 1
+            }
+
+            list[i + 1] = keyElement
+        }
     }
 }
