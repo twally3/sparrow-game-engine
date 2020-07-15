@@ -23,6 +23,7 @@ class RenderSystem: System {
             
             // TODO: I shouldnt be here, delete me!
             if let _ = entity.getComponent(componentClass: ParticleComponent.self) { continue }
+            if let _ = entity.getComponent(componentClass: ParticleSystemComponent.self) { continue }
             
             var modelConstants = ModelConstants(modelMatrix: transformComponent.modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)

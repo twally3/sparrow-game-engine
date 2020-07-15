@@ -17,21 +17,50 @@ vertex ParticleRasterizerData particle_vertex_shader(const VertexIn vIn [[ stage
                                                      constant float &numberOfRows [[ buffer(4) ]],
                                                      constant float &blendFactor [[ buffer(5) ]]) {
     ParticleRasterizerData rd;
-    
+
     float4 worldPosition = modelConstants.modelMatrix * float4(vIn.position, 1);
-    
+
     rd.position = sceneConstants.projectionMatrix * sceneConstants.viewMatrix * worldPosition;
-    
+
     float2 textureCoords = vIn.textureCoordinate;
     textureCoords.y = 1.0 - textureCoords.y;
     textureCoords /= numberOfRows;
-    
+
     rd.texCoords1 = textureCoords + texOffset.xy;
     rd.texCoords2 =  textureCoords + texOffset.zw;
     rd.blend = blendFactor;
-    
+
     return rd;
 }
+
+//vertex ParticleRasterizerData particle_vertex_shader(const VertexIn vIn [[ stage_in ]],
+//                                                      constant SceneConstants &sceneConstants [[ buffer(1) ]],
+//                                                      constant ModelConstants *modelConstants [[ buffer(2) ]],
+//                                                      constant float &blendFactor [[ buffer(5) ]],
+//                                                      uint instanceId [[ instance_id ]]) {
+//    ParticleRasterizerData rd;
+//
+////    ModelConstants modelConstant = modelConstants[instanceId];
+////
+////    float4 worldPosition = modelConstant.modelMatrix * float4(vIn.position, 1);
+////    rd.position = sceneConstants.projectionMatrix * sceneConstants.viewMatrix * worldPosition;
+////    rd.colour = vIn.colour;
+////    rd.textureCoordinate = vIn.textureCoordinate;
+////    rd.worldPosition = worldPosition.xyz;
+////    rd.surfaceNormal = (modelConstant.modelMatrix * float4(vIn.normal, 1.0)).xyz;
+////    rd.toCameraVector = sceneConstants.cameraPosition - worldPosition.xyz;
+//
+//    ModelConstants modelConstant = modelConstants[instanceId];
+//
+//    float4 worldPosition = modelConstant.modelMatrix * float4(vIn.position, 1);
+//
+//    rd.position = sceneConstants.projectionMatrix * sceneConstants.viewMatrix * worldPosition;
+//    rd.texCoords1 = vIn.textureCoordinate;
+//    rd.texCoords2 = vIn.textureCoordinate;
+//    rd.blend = blendFactor;
+//
+//    return rd;
+//}
 
 fragment half4 particle_fragment_shader(ParticleRasterizerData rd [[ stage_in ]],
                                      constant Material &material [[ buffer(1) ]],

@@ -20,6 +20,7 @@ class SceneManager {
             try engine.addSystem(system: SkyboxSystem(priority: 0))
             try engine.addSystem(system: RenderSystem(priority: 0))
             try engine.addSystem(system: InstancedRenderSystem(priority: 0))
+            try engine.addSystem(system: ParticleSystemSystem(priority: 0))
             try engine.addSystem(system: ParticleSystem(priority: 0))
             try engine.addSystem(system: FPSCameraSystem(priority: 0))
             try engine.addSystem(system: CollisionSystem(priority: 0))

@@ -30,85 +30,28 @@ class ParticleSystem: System {
     }
     
     func update(deltaTime: Float) {
-        generateParticles(systemCenter: SIMD3<Float>(0, 0, 0), deltaTime: deltaTime)
-        
         // TODO: Move me so I dont get fetched each time
         let cameras = engine.getEntities(for: Family.all(components: CameraComponent.self))
         let camera = cameras[0]
         let cameraTransformComponent = camera.getComponent(componentClass: TransformComponent.self)!
         let cameraPosition = cameraTransformComponent.position
-        
+
         for entity in entities {
             let particleComponent = entity.getComponent(componentClass: ParticleComponent.self)!
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
-            
+
             particleComponent.velocity.y += -1 * particleComponent.gravityEffect * deltaTime * 0
             let change = SIMD3<Float>(particleComponent.velocity) * deltaTime
             transformComponent.position += change
             particleComponent.elapsedTime += deltaTime
             particleComponent.distance = length_squared(cameraPosition - transformComponent.position)
-            
+
             if particleComponent.elapsedTime >= particleComponent.lifeLength {
                 try! engine.removeEntity(entity: entity)
             }
         }
-        
+
         insertionSort(list: &entities)
-    }
-    
-    private func generateParticles(systemCenter: SIMD3<Float>, deltaTime: Float) {
-        let particlesToCreate = pps * deltaTime
-        let count = Int(floor(particlesToCreate))
-        let partialParticle = particlesToCreate.truncatingRemainder(dividingBy: 1)
-        
-        for _ in 0..<count {
-            emitParticle(centre: systemCenter)
-        }
-        
-        if Float.random(in: 0...1) < partialParticle {
-            emitParticle(centre: systemCenter)
-        }
-    }
-    
-    private func emitParticle(centre: SIMD3<Float>) {
-        var velocity: SIMD3<Float>
-        
-        if let direction = direction {
-            velocity = generateRandomUnitVectorWithinCone(direction: direction, deviation: directionDeviation)
-        } else {
-            velocity = generateRandomUnitVector()
-        }
-        
-        velocity = normalize(velocity) * generateValue(average: averageSpeed, errorMargin: speedError)
-        let scale = generateValue(average: averageScale, errorMargin: scaleError)
-        let lifeLength = generateValue(average: averageLifeLength, errorMargin: lifeError)
-        
-        // ----------
-        
-        let particle = engine.createEntity()
-        try! particle.add(component: TransformComponent(position: centre,
-                                                        rotation: SIMD3<Float>(0, 0, generateRotation()),
-                                                        scale: SIMD3<Float>(repeating: 0.05) * scale))
-        try! particle.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Fire))
-        try! particle.add(component: ParticleComponent(velocity: velocity, gravityEffect: 10, lifeLength: lifeLength))
-        try! engine.addEntity(entity: particle)
-    }
-    
-    // TODO: Actually implement me
-    private func generateRandomUnitVectorWithinCone(direction: SIMD3<Float>, deviation: Float) -> SIMD3<Float> {
-        return normalize(direction)
-    }
-    
-    private func generateRandomUnitVector() -> SIMD3<Float> {
-        return normalize(SIMD3<Float>.random(in: -1...1))
-    }
-    
-    private func generateValue(average: Float, errorMargin: Float) -> Float {
-        return average + Float.random(in: -1...1) * errorMargin
-    }
-    
-    private func generateRotation() -> Float {
-        return randomRotation ? Float.random(in: 0...Float.pi * 2) : 0
     }
     
     func render(renderCommandEncoder: MTLRenderCommandEncoder) {

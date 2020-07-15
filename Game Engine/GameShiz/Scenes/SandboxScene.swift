@@ -31,6 +31,12 @@ class SandboxScene: Scene {
 //            try instancedCube.add(component: InstancedTransformComponent(instanceCount: instanceCount, transformComponents: transformComponents))
 //            try engine.addEntity(entity: instancedCube)
             
+            let particleSystem = engine.createEntity()
+            try particleSystem.add(component: ParticleSystemComponent())
+            try particleSystem.add(component: TransformComponent())
+            try particleSystem.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Fire))
+            try engine.addEntity(entity: particleSystem)
+            
             let quad = engine.createEntity()
             try quad.add(component: TransformComponent(position: SIMD3<Float>(0, -0.5, 0)))
             try quad.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .MetalPlate_Diff, normalMapType: .MetalPlate_Normal))
