@@ -42,7 +42,7 @@ class ECS {
         familyManager.onEntityRemoved(entity: entity)
         
         for system in systemManager.getSystems() {
-            system.onEntityAdded(entity: entity)
+            system.onEntityRemoved(entity: entity)
         }
     }
     
