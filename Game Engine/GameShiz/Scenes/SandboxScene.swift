@@ -37,6 +37,19 @@ class SandboxScene: Scene {
             try particleSystem.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Fire))
             try engine.addEntity(entity: particleSystem)
             
+            let particleSystem2 = engine.createEntity()
+            let psc = ParticleSystemComponent()
+            psc.textureRows = 4
+            psc.averageScale = 1
+            psc.averageSpeed = 0.5
+            psc.pps = 10
+            psc.averageSpeed = 0.2
+            try particleSystem2.add(component: psc)
+            try particleSystem2.add(component: TransformComponent(position: SIMD3<Float>(1, 0, 0)))
+            try particleSystem2.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Atlas))
+            try particleSystem2.add(component: MovableComponent())
+            try engine.addEntity(entity: particleSystem2)
+            
             let quad = engine.createEntity()
             try quad.add(component: TransformComponent(position: SIMD3<Float>(0, -0.5, 0)))
             try quad.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .MetalPlate_Diff, normalMapType: .MetalPlate_Normal))
