@@ -13,7 +13,7 @@ class SandboxScene: Scene {
             try cube2.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
             try cube2.add(component: TransformComponent(position: SIMD3<Float>(1, 0, 0), scale: SIMD3<Float>(repeating: 0.25)))
             try cube2.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: Material(colour: SIMD4<Float>(1, 0, 1, 1))))
-            try engine.addEntity(entity: cube2)
+//            try engine.addEntity(entity: cube2)
 
 //            let chest = engine.createEntity()
 //            try chest.add(component: TransformComponent(scale: SIMD3<Float>(repeating: 0.01)))
@@ -41,13 +41,12 @@ class SandboxScene: Scene {
             let psc = ParticleSystemComponent()
             psc.textureRows = 4
             psc.averageScale = 1
-            psc.averageSpeed = 0.5
-            psc.pps = 10
             psc.averageSpeed = 0.2
+            psc.pps = 30
+            psc.averageLifeLength = 2
             try particleSystem2.add(component: psc)
-            try particleSystem2.add(component: TransformComponent(position: SIMD3<Float>(1, 0, 0)))
+            try particleSystem2.add(component: TransformComponent(position: SIMD3<Float>(2, 0, 0)))
             try particleSystem2.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Atlas))
-            try particleSystem2.add(component: MovableComponent())
             try engine.addEntity(entity: particleSystem2)
             
             let quad = engine.createEntity()

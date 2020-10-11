@@ -22,7 +22,7 @@ class ParticleSystem: System {
         let camera = cameras[0]
         let cameraTransformComponent = camera.getComponent(componentClass: TransformComponent.self)!
         let cameraPosition = cameraTransformComponent.position
-
+        
         for entity in entities {
             let particleComponent = entity.getComponent(componentClass: ParticleComponent.self)!
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
@@ -38,10 +38,9 @@ class ParticleSystem: System {
             }
         }
         
-        insertionSort(list: &entities)
+        insertionSort(list: &self.entities)
         
         var dict: [ParticleSystemRefComponent? : [Entity]] = [:]
-        var arr = [Entity]()
         
         for entity in entities {
             if let particleSystemRefComponent = entity.getComponent(componentClass: ParticleSystemRefComponent.self) {
@@ -52,12 +51,9 @@ class ParticleSystem: System {
                 } else {
                     dict[particleSystemRefComponent] = [entity]
                 }
-            } else {
-                arr.append(entity)
             }
         }
         
-        dict[nil] = arr
         systemDict = dict
     }
     
@@ -71,52 +67,66 @@ class ParticleSystem: System {
         let cameraComponent = camera.getComponent(componentClass: CameraComponent.self)!
         let viewMatrix = cameraComponent.viewMatrix
         
+        let cameraTransformComponent = camera.getComponent(componentClass: TransformComponent.self)!
+        let cameraPosition = cameraTransformComponent.position
+        
         renderCommandEncoder.pushDebugGroup("TEST")
         
+        // TODO: Replace with TransformComponent in ref
+        var systemArr: [(ParticleSystemRefComponent, [Entity], Float)] = []
+        
         for (component, entities) in systemDict {
-            if let particleSystemRefComponent = component {
-                let particleSystemComponent = particleSystemRefComponent.particleSystemComponent
-                let renderComponent = particleSystemRefComponent.renderComponent
+            guard let component = component else { continue }
+            
+            let dist = length_squared(cameraPosition - component.transformComponent.position)
+            
+            systemArr.append((component, entities, dist))
+        }
+        
+        insertionSort(list: &systemArr) { (a, b) -> Bool in b.2 < a.2 }
+        
+        for (particleSystemRefComponent, entities, _) in systemArr {
+            let particleSystemComponent = particleSystemRefComponent.particleSystemComponent
+            let renderComponent = particleSystemRefComponent.renderComponent
+            
+            var numberOfRows = Float(particleSystemComponent.textureRows)
+            renderCommandEncoder.setVertexBytes(&numberOfRows, length: Float.size, index: 5)
+            
+            let modelConstantsBuffer = Engine.device.makeBuffer(length: ModelConstants.stride(entities.count), options: [])!
+            let offsetBuffer = Engine.device.makeBuffer(length: SIMD4<Float>.stride(entities.count), options: [])!
+            let blendFactorBuffer = Engine.device.makeBuffer(length: Float.stride(entities.count), options: [])!
+            
+            var modelConstantsPointer = modelConstantsBuffer.contents().bindMemory(to: ModelConstants.self, capacity: entities.count)
+            var offsetPointer = offsetBuffer.contents().bindMemory(to: SIMD4<Float>.self, capacity: entities.count)
+            var blendFactorPointer = blendFactorBuffer.contents().bindMemory(to: Float.self, capacity: entities.count)
+            
+            for entity in entities {
+                let particleComponent = entity.getComponent(componentClass: ParticleComponent.self)!
+                let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
                 
-                var numberOfRows = Float(particleSystemComponent.textureRows)
-                renderCommandEncoder.setVertexBytes(&numberOfRows, length: Float.size, index: 5)
+                let (offet, blendFactor) = getTextureCoordInfo(particleComponent: particleComponent, particleSystemComponent: particleSystemComponent)
                 
-                let modelConstantsBuffer = Engine.device.makeBuffer(length: ModelConstants.stride(entities.count), options: [])!
-                let offsetBuffer = Engine.device.makeBuffer(length: SIMD4<Float>.stride(entities.count), options: [])!
-                let blendFactorBuffer = Engine.device.makeBuffer(length: Float.stride(entities.count), options: [])!
+                let modelMatrix = calculateModelMatrix(transformComponent: transformComponent, viewMatrix: viewMatrix)
                 
-                var modelConstantsPointer = modelConstantsBuffer.contents().bindMemory(to: ModelConstants.self, capacity: entities.count)
-                var offsetPointer = offsetBuffer.contents().bindMemory(to: SIMD4<Float>.self, capacity: entities.count)
-                var blendFactorPointer = blendFactorBuffer.contents().bindMemory(to: Float.self, capacity: entities.count)
+                modelConstantsPointer.pointee.modelMatrix = modelMatrix
+                modelConstantsPointer = modelConstantsPointer.advanced(by: 1)
                 
-                for entity in entities {
-                    let particleComponent = entity.getComponent(componentClass: ParticleComponent.self)!
-                    let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
-                    
-                    let (offet, blendFactor) = getTextureCoordInfo(particleComponent: particleComponent, particleSystemComponent: particleSystemComponent)
-                    
-                    let modelMatrix = calculateModelMatrix(transformComponent: transformComponent, viewMatrix: viewMatrix)
-                    
-                    modelConstantsPointer.pointee.modelMatrix = modelMatrix
-                    modelConstantsPointer = modelConstantsPointer.advanced(by: 1)
-                    
-                    offsetPointer.pointee = offet
-                    offsetPointer = offsetPointer.advanced(by: 1)
-                    
-                    blendFactorPointer.pointee = blendFactor
-                    blendFactorPointer = blendFactorPointer.advanced(by: 1)
-                }
+                offsetPointer.pointee = offet
+                offsetPointer = offsetPointer.advanced(by: 1)
                 
-                renderCommandEncoder.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
-                renderCommandEncoder.setVertexBuffer(offsetBuffer, offset: 0, index: 3)
-                renderCommandEncoder.setVertexBuffer(blendFactorBuffer, offset: 0, index: 4)
-                
-                renderComponent.mesh.setInstanceCount(entities.count)
-                renderComponent.mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
-                                                    material: renderComponent.material,
-                                                    baseColourTextureType: renderComponent.textureType,
-                                                    baseNormalMapTextureType: renderComponent.normalMapType)
+                blendFactorPointer.pointee = blendFactor
+                blendFactorPointer = blendFactorPointer.advanced(by: 1)
             }
+            
+            renderCommandEncoder.setVertexBuffer(modelConstantsBuffer, offset: 0, index: 2)
+            renderCommandEncoder.setVertexBuffer(offsetBuffer, offset: 0, index: 3)
+            renderCommandEncoder.setVertexBuffer(blendFactorBuffer, offset: 0, index: 4)
+            
+            renderComponent.mesh.setInstanceCount(entities.count)
+            renderComponent.mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
+                                                material: renderComponent.material,
+                                                baseColourTextureType: renderComponent.textureType,
+                                                baseNormalMapTextureType: renderComponent.normalMapType)
         }
         
         renderCommandEncoder.popDebugGroup()
@@ -166,15 +176,13 @@ class ParticleSystem: System {
     }
     
     func onEntityAdded(entity: Entity) {
-        if family.matches(entity: entity) {
-            self.entities = engine.getEntities(for: family)
-        }
+        if !family.matches(entity: entity) { return }
+        self.entities.append(entity)
     }
     
     func onEntityRemoved(entity: Entity) {
-        if !family.matches(entity: entity) {
-            self.entities = engine.getEntities(for: family)
-        }
+        if !family.matches(entity: entity) { return }
+        self.entities.removeAll { (e) -> Bool in e == entity }
     }
     
     func onAddedToEngine(engine: ECS) {
@@ -183,15 +191,19 @@ class ParticleSystem: System {
     }
     
     private func insertionSort(list: inout [Entity]) {
+        insertionSort(list: &list) { (a, b) -> Bool in
+            b.getComponent(componentClass: ParticleComponent.self)!.distance < a.getComponent(componentClass: ParticleComponent.self)!.distance
+        }
+    }
+    
+    private func insertionSort<T>(list: inout [T], predicate: (T, T) -> Bool) {
         if list.count == 0 || list.count == 1 { return }
         
         for j in 1..<list.count {
             let keyElement = list[j]
-            let key = keyElement.getComponent(componentClass: ParticleComponent.self)!.distance
-
             var i = j - 1
 
-            while i >= 0 && list[i].getComponent(componentClass: ParticleComponent.self)!.distance < key {
+            while i >= 0 && predicate(keyElement, list[i]) {
                 list[i + 1] = list[i]
                 i = i - 1
             }

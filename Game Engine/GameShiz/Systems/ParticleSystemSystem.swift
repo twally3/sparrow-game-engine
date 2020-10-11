@@ -24,16 +24,16 @@ class ParticleSystemSystem: System {
             let partialParticle = particlesToCreate.truncatingRemainder(dividingBy: 1)
 
             for _ in 0..<count {
-                emitParticle(centre: transformComponent.position, particleSystemComponent: particleSystemComponent, renderComponent: renderComponent)
+                emitParticle(centre: transformComponent.position, particleSystemComponent: particleSystemComponent, renderComponent: renderComponent, transformComponent: transformComponent)
             }
 
             if Float.random(in: 0...1) < partialParticle {
-                emitParticle(centre: transformComponent.position, particleSystemComponent: particleSystemComponent, renderComponent: renderComponent)
+                emitParticle(centre: transformComponent.position, particleSystemComponent: particleSystemComponent, renderComponent: renderComponent, transformComponent: transformComponent)
             }
         }
     }
     
-    private func emitParticle(centre: SIMD3<Float>, particleSystemComponent: ParticleSystemComponent, renderComponent: RenderComponent) {
+    private func emitParticle(centre: SIMD3<Float>, particleSystemComponent: ParticleSystemComponent, renderComponent: RenderComponent, transformComponent: TransformComponent) {
         var velocity: SIMD3<Float>
         
         if let direction = particleSystemComponent.direction {
@@ -54,7 +54,7 @@ class ParticleSystemSystem: System {
                                                         rotation: SIMD3<Float>(0, 0, generateRotation(randomRotation: particleSystemComponent.randomRotation)),
                                                         scale: SIMD3<Float>(repeating: 0.05) * scale))
         try! particle.add(component: RenderComponent(mesh: Entities.meshes[.Quad], textureType: .Particle_Fire))
-        try! particle.add(component: ParticleSystemRefComponent(particleSystemComponent: particleSystemComponent, renderComponent: renderComponent))
+        try! particle.add(component: ParticleSystemRefComponent(particleSystemComponent: particleSystemComponent, renderComponent: renderComponent, transformComponent: transformComponent))
         try! particle.add(component: ParticleComponent(velocity: velocity, gravityEffect: 10, lifeLength: lifeLength))
         try! engine.addEntity(entity: particle)
     }

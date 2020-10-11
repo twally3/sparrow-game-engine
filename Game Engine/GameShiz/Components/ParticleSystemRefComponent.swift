@@ -1,10 +1,12 @@
 class ParticleSystemRefComponent: Component {
     public var particleSystemComponent: ParticleSystemComponent
     public var renderComponent: RenderComponent
+    public var transformComponent: TransformComponent
     
-    init(particleSystemComponent: ParticleSystemComponent, renderComponent: RenderComponent) {
+    init(particleSystemComponent: ParticleSystemComponent, renderComponent: RenderComponent, transformComponent: TransformComponent) {
         self.particleSystemComponent = particleSystemComponent
         self.renderComponent = renderComponent
+        self.transformComponent = transformComponent
     }
 }
 
