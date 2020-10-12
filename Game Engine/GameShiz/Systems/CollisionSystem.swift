@@ -60,6 +60,8 @@ class CollisionSystem: System {
     }
     
     func sortAxis(endPoints: inout ContiguousArray<EndPoint>, axis: Axis) {
+        if (endPoints.count == 0) { return; }
+        
         for j in 1..<endPoints.count {
             let keyElement = endPoints[j]
             // TODO: Calculate Axis variance and use dynamically
