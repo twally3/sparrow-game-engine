@@ -12,6 +12,16 @@ enum MeshTypes {
     case SkyBox_Custom
     
     case Quad
+    
+    // Terrain pack stuff
+    case GroundGrass
+    case TreePineA
+    case TreePineB
+    case TreePineC
+    case FlowerRed
+    case FlowerYellow
+    case FlowerPurple
+    case Tent_Opened
 }
 
 class MeshLibrary: Library<MeshTypes, Mesh> {
@@ -29,6 +39,15 @@ class MeshLibrary: Library<MeshTypes, Mesh> {
         _library.updateValue(Skybox_CustomMesh(), forKey: .SkyBox_Custom)
         
         _library.updateValue(Mesh(modelName: "quad"), forKey: .Quad)
+        
+        _library.updateValue(Mesh(modelName: "ground_grass"), forKey: .GroundGrass)
+        _library.updateValue(Mesh(modelName: "tree_pineTallA_detailed"), forKey: .TreePineA)
+        _library.updateValue(Mesh(modelName: "tree_pineDefaultB"), forKey: .TreePineB)
+        _library.updateValue(Mesh(modelName: "tree_pineRoundC"), forKey: .TreePineC)
+        _library.updateValue(Mesh(modelName: "flower_redA"), forKey: .FlowerRed)
+        _library.updateValue(Mesh(modelName: "flower_yellowA"), forKey: .FlowerYellow)
+        _library.updateValue(Mesh(modelName: "flower_purpleA"), forKey: .FlowerPurple)
+        _library.updateValue(Mesh(modelName: "tent_smallOpen"), forKey: .Tent_Opened)
     }
     
     override subscript(_ type: MeshTypes) -> Mesh {

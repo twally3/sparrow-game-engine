@@ -2,6 +2,7 @@ import MetalKit
 
 enum SceneTypes {
     case Sandbox
+    case Forest
 }
 
 class SceneManager {
@@ -34,6 +35,8 @@ class SceneManager {
         switch sceneType {
         case .Sandbox:
             _currentScene = SandboxScene(name: "Sandbox", engine: engine)
+        case .Forest:
+            _currentScene = ForestScene(name: "Forest", engine: engine)
         }
     }
     
