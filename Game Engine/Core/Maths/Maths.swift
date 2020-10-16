@@ -61,6 +61,17 @@ extension matrix_float4x4 {
         self = matrix_multiply(self, result)
     }
     
+    mutating func rotate(rotations: SIMD3<Float>) {
+        let qPitch = simd_quatf(angle: rotations.x, axis: SIMD3<Float>(x: 1, y: 0, z: 0))
+        let qYaw = simd_quatf(angle: rotations.y, axis: SIMD3<Float>(x: 0, y: 1, z: 0))
+        let qRoll = simd_quatf(angle: rotations.z, axis: SIMD3<Float>(x: 0, y: 0, z: 1))
+
+        let orientation = qPitch * qYaw * qRoll
+        let result = matrix_float4x4(orientation.normalized)
+        
+        self = matrix_multiply(self, result)
+    }
+    
     mutating func rotate(angle: Float, axis: SIMD3<Float>) {
         var result = matrix_identity_float4x4
         

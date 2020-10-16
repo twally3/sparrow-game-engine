@@ -43,9 +43,7 @@ class TransformComponent: Component {
     func updateModelMatrix() {
         var modelMatrix = matrix_identity_float4x4
         modelMatrix.translate(direction: position)
-        modelMatrix.rotate(angle: rotation.x, axis: X_AXIS)
-        modelMatrix.rotate(angle: rotation.y, axis: Y_AXIS)
-        modelMatrix.rotate(angle: rotation.z, axis: Z_AXIS)
+        modelMatrix.rotate(rotations: rotation)
         modelMatrix.scale(axis: scale)
         self.modelMatrix = modelMatrix
     }

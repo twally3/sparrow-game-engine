@@ -16,12 +16,8 @@ class CameraSystem: System {
             let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self)!
             let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self)!
             
-            let qPitch = simd_quatf(angle: transformComponent.rotation.x, axis: SIMD3<Float>(x: 1, y: 0, z: 0))
-            let qYaw = simd_quatf(angle: transformComponent.rotation.y, axis: SIMD3<Float>(x: 0, y: 1, z: 0))
-            let qRoll = simd_quatf(angle: transformComponent.rotation.z, axis: SIMD3<Float>(x: 0, y: 0, z: 1))
-
-            let orientation = qPitch * qYaw * qRoll
-            let rotate = matrix_float4x4(orientation.normalized)
+            var rotate = matrix_identity_float4x4
+            rotate.rotate(rotations: transformComponent.rotation)
 
             var translate = matrix_identity_float4x4
             translate.translate(direction: -transformComponent.position)
