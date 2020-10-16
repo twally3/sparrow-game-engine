@@ -37,7 +37,7 @@ class ForestScene: Scene {
                                                        rotation: SIMD3<Float>(0, Float(20).toRadians, 0),
                                                        scale: SIMD3<Float>(repeating: 1)))
             try tent.add(component: RenderComponent(mesh: Entities.meshes[.Tent_Opened]))
-            try engine.addEntity(entity: tent)
+//            try engine.addEntity(entity: tent)
             
             let redFlowers = engine.createEntity()
             try redFlowers.add(component: RenderComponent(mesh: Entities.meshes[.FlowerRed]))
@@ -69,7 +69,17 @@ class ForestScene: Scene {
             try treeCs.add(component: InstancedTransformComponent(instanceCount: 1000, transformComponents: getTreeTransformComponents(count: 1000)))
             try engine.addEntity(entity: treeCs)
             
+            let cube = engine.createEntity()
+            try cube.add(component: MovableComponent())
+            try cube.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(repeating: 1)))
+            try cube.add(component: TransformComponent(position: SIMD3<Float>(0, 10, 0), scale: SIMD3<Float>(1, 1, 1)))
+            try cube.add(component: RenderComponent(mesh: Entities.meshes[.Cube_Custom], material: Material(colour: SIMD4<Float>(1, 1, 0, 1))))
+            try cube.add(component: RigidbodyComponent())
+            try engine.addEntity(entity: cube)
+            
             let camera = engine.createEntity()
+            try camera.add(component: RigidbodyComponent())
+            try camera.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(1, 2, 1)))
             try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 1, 3)))
             try camera.add(component: CameraComponent())
             try camera.add(component: MouseInputComponent())

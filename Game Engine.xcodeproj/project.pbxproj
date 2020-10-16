@@ -78,6 +78,8 @@
 		50823CA72533C691005F7E71 /* tree_pineRoundC.obj in Resources */ = {isa = PBXBuildFile; fileRef = 50823C9C2533C691005F7E71 /* tree_pineRoundC.obj */; };
 		50823CA82533C691005F7E71 /* tree_pineTallA_detailed.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 50823C9D2533C691005F7E71 /* tree_pineTallA_detailed.mtl */; };
 		50823CA92533C691005F7E71 /* tree_pineTallA_detailed.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 50823C9D2533C691005F7E71 /* tree_pineTallA_detailed.mtl */; };
+		50823CB72534D093005F7E71 /* RigidbodyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50823CB62534D093005F7E71 /* RigidbodyComponent.swift */; };
+		50823CBD2534D0DD005F7E71 /* RigidbodySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50823CBC2534D0DD005F7E71 /* RigidbodySystem.swift */; };
 		508F0A8C2470133700121CD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F0A8B2470133700121CD3 /* AppDelegate.swift */; };
 		508F0A8E2470133700121CD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F0A8D2470133700121CD3 /* SceneDelegate.swift */; };
 		508F0A932470133700121CD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508F0A912470133700121CD3 /* Main.storyboard */; };
@@ -308,6 +310,8 @@
 		50823C9B2533C691005F7E71 /* tree_pineDefaultB.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree_pineDefaultB.mtl; sourceTree = "<group>"; };
 		50823C9C2533C691005F7E71 /* tree_pineRoundC.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree_pineRoundC.obj; sourceTree = "<group>"; };
 		50823C9D2533C691005F7E71 /* tree_pineTallA_detailed.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree_pineTallA_detailed.mtl; sourceTree = "<group>"; };
+		50823CB62534D093005F7E71 /* RigidbodyComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodyComponent.swift; sourceTree = "<group>"; };
+		50823CBC2534D0DD005F7E71 /* RigidbodySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodySystem.swift; sourceTree = "<group>"; };
 		508F0A892470133700121CD3 /* Game Engine iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Engine iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		508F0A8B2470133700121CD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		508F0A8D2470133700121CD3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -594,9 +598,9 @@
 				50215E3023A7F27500B0C166 /* GameTime.swift */,
 				505D1A6B23A3842C00813A05 /* Preferences.swift */,
 				50215E2023A7E55300B0C166 /* Types */,
-				5067174823A6C89500C31239 /* Input */,
 				50BC8EC723A6AAE7003544A5 /* Maths */,
 				50A4646E23A7B860000D562D /* Utils */,
+				5067174823A6C89500C31239 /* Input */,
 				50215E3423A80B2100B0C166 /* Res */,
 			);
 			path = Core;
@@ -778,6 +782,7 @@
 				508F0AF42470243300121CD3 /* SkyboxSystem.swift */,
 				508F0B0D2470925000121CD3 /* CollisionSystem.swift */,
 				500385E1248EF7C700405807 /* MovableSystem.swift */,
+				50823CBC2534D0DD005F7E71 /* RigidbodySystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -797,6 +802,7 @@
 				508F0AF72470246E00121CD3 /* SkyboxComponent.swift */,
 				508F0B0F247092D300121CD3 /* BoundingBoxComponent.swift */,
 				500385E3248EF80C00405807 /* MovableComponent.swift */,
+				50823CB62534D093005F7E71 /* RigidbodyComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1101,12 +1107,14 @@
 				50B46821246D8FFA00735E8C /* Event.swift in Sources */,
 				50B46813246D8FD900735E8C /* Component.swift in Sources */,
 				50B46833246DC31900735E8C /* InstancedTransformComponent.swift in Sources */,
+				50823CB72534D093005F7E71 /* RigidbodyComponent.swift in Sources */,
 				50B46824246D903B00735E8C /* RenderSystem.swift in Sources */,
 				50B46817246D8FD900735E8C /* Family.swift in Sources */,
 				503B90DE23AFCA7600F30DBE /* Lighting.metal in Sources */,
 				50BC8EBC23A66B60003544A5 /* Renderer.swift in Sources */,
 				50B46816246D8FD900735E8C /* ComponentType.swift in Sources */,
 				50215E2F23A7F20700B0C166 /* InstancedShaders.metal in Sources */,
+				50823CBD2534D0DD005F7E71 /* RigidbodySystem.swift in Sources */,
 				506A9983246EB406002BD2E5 /* FPSCameraComponent.swift in Sources */,
 				50B4682F246DB80800735E8C /* LightComponent.swift in Sources */,
 				508F0AF82470246E00121CD3 /* SkyboxComponent.swift in Sources */,

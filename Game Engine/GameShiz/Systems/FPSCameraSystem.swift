@@ -37,6 +37,9 @@ class FPSCameraSystem: System {
             let direction = -dz * forward + dx * strafe
             transformComponent.position += direction * fpsCameraComponent.speed * deltaTime
             
+            // TODO: REMOVE ME BEFORE MERGE WITH MASTER! 
+            transformComponent.position *= SIMD3<Float>(1, 0, 1)
+            
             // Mouse
             if !mouseInputComponent.right { return }
             let mouseDelta = SIMD2<Float>(x: mouseInputComponent.dx, y: mouseInputComponent.dy)
