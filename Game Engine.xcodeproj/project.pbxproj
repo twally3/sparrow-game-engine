@@ -13,6 +13,11 @@
 		501BB90F244F56F9007797BA /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90B244F56F8007797BA /* chest.obj */; };
 		501BB910244F56F9007797BA /* Chest_Wood_Base_Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90C244F56F9007797BA /* Chest_Wood_Base_Color.png */; };
 		501BB911244F56F9007797BA /* Chest_Metal_Base_Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 501BB90D244F56F9007797BA /* Chest_Metal_Base_Color.png */; };
+		501EAFA52586A56800B073CF /* GuiSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501EAFA42586A56800B073CF /* GuiSystem.swift */; };
+		501EAFAB2586A58D00B073CF /* GuiComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501EAFAA2586A58D00B073CF /* GuiComponent.swift */; };
+		501EAFB12586A61800B073CF /* GuiShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 501EAFB02586A61800B073CF /* GuiShaders.metal */; };
+		501EAFB72586BAB500B073CF /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 501EAFB62586BAB500B073CF /* heart.png */; };
+		501EAFB82586BAB500B073CF /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 501EAFB62586BAB500B073CF /* heart.png */; };
 		50215E1D23A7E42B00B0C166 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50215E1C23A7E42B00B0C166 /* Graphics.swift */; };
 		50215E1F23A7E43B00B0C166 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50215E1E23A7E43B00B0C166 /* Entities.swift */; };
 		50215E2223A7E5A300B0C166 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50215E2123A7E5A300B0C166 /* Library.swift */; };
@@ -253,6 +258,10 @@
 		501BB90B244F56F8007797BA /* chest.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.obj; sourceTree = "<group>"; };
 		501BB90C244F56F9007797BA /* Chest_Wood_Base_Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chest_Wood_Base_Color.png; sourceTree = "<group>"; };
 		501BB90D244F56F9007797BA /* Chest_Metal_Base_Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chest_Metal_Base_Color.png; sourceTree = "<group>"; };
+		501EAFA42586A56800B073CF /* GuiSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiSystem.swift; sourceTree = "<group>"; };
+		501EAFAA2586A58D00B073CF /* GuiComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuiComponent.swift; sourceTree = "<group>"; };
+		501EAFB02586A61800B073CF /* GuiShaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = GuiShaders.metal; sourceTree = "<group>"; };
+		501EAFB62586BAB500B073CF /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		50215E1C23A7E42B00B0C166 /* Graphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
 		50215E1E23A7E43B00B0C166 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		50215E2123A7E5A300B0C166 /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
@@ -465,6 +474,7 @@
 				50215E2E23A7F20700B0C166 /* InstancedShaders.metal */,
 				503B90DD23AFCA7600F30DBE /* Lighting.metal */,
 				508F0AEE24701FED00121CD3 /* SkyBoxShaders.metal */,
+				501EAFB02586A61800B073CF /* GuiShaders.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -472,6 +482,7 @@
 		50215E3423A80B2100B0C166 /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				501EAFB62586BAB500B073CF /* heart.png */,
 				50823C832533C66F005F7E71 /* trees */,
 				50823C822533C66A005F7E71 /* terrain */,
 				50823C812533C660005F7E71 /* tent */,
@@ -778,6 +789,7 @@
 				508F0AF42470243300121CD3 /* SkyboxSystem.swift */,
 				508F0B0D2470925000121CD3 /* CollisionSystem.swift */,
 				500385E1248EF7C700405807 /* MovableSystem.swift */,
+				501EAFA42586A56800B073CF /* GuiSystem.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -797,6 +809,7 @@
 				508F0AF72470246E00121CD3 /* SkyboxComponent.swift */,
 				508F0B0F247092D300121CD3 /* BoundingBoxComponent.swift */,
 				500385E3248EF80C00405807 /* MovableComponent.swift */,
+				501EAFAA2586A58D00B073CF /* GuiComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -999,6 +1012,7 @@
 				501BB911244F56F9007797BA /* Chest_Metal_Base_Color.png in Resources */,
 				508F0B052470251A00121CD3 /* up.png in Resources */,
 				50823C922533C682005F7E71 /* ground_grass.mtl in Resources */,
+				501EAFB72586BAB500B073CF /* heart.png in Resources */,
 				50823C9E2533C691005F7E71 /* tree_pineTallA_detailed.obj in Resources */,
 				50823CA82533C691005F7E71 /* tree_pineTallA_detailed.mtl in Resources */,
 				50823C732533C654005F7E71 /* flower_yellowA.mtl in Resources */,
@@ -1051,6 +1065,7 @@
 				508F0AAD2470141500121CD3 /* chest.obj in Resources */,
 				508F0AB02470141D00121CD3 /* sphere.obj in Resources */,
 				508F0AB12470142400121CD3 /* cruiser.bmp in Resources */,
+				501EAFB82586BAB500B073CF /* heart.png in Resources */,
 				508F0AAA2470140E00121CD3 /* Chest_Metal_Base_Color.png in Resources */,
 				508F0AEA2470162F00121CD3 /* PartyPirateParot.png in Resources */,
 				5092F08D24A780D3005B9997 /* normal_example.png in Resources */,
@@ -1083,6 +1098,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B46818246D8FD900735E8C /* EntityManager.swift in Sources */,
+				501EAFB12586A61800B073CF /* GuiShaders.metal in Sources */,
 				50B46831246DB8BC00735E8C /* LightSystem.swift in Sources */,
 				50BC8ECE23A6BBCF003544A5 /* SandboxScene.swift in Sources */,
 				50BC8ED123A6BD65003544A5 /* SceneManager.swift in Sources */,
@@ -1122,6 +1138,7 @@
 				50A4646D23A712D4000D562D /* DepthStencilStateLibrary.swift in Sources */,
 				508F0B0E2470925000121CD3 /* CollisionSystem.swift in Sources */,
 				50F11EC8246DFA9600E61759 /* MouseInputSystem.swift in Sources */,
+				501EAFA52586A56800B073CF /* GuiSystem.swift in Sources */,
 				50F11EC0246DEDB500E61759 /* CameraComponent.swift in Sources */,
 				50B46815246D8FD900735E8C /* SystemManager.swift in Sources */,
 				50215E2223A7E5A300B0C166 /* Library.swift in Sources */,
@@ -1130,6 +1147,7 @@
 				50B46812246D8FD900735E8C /* FamilyManager.swift in Sources */,
 				50B46819246D8FD900735E8C /* ECS.swift in Sources */,
 				505D1A3323A2F4E800813A05 /* AppDelegate.swift in Sources */,
+				501EAFAB2586A58D00B073CF /* GuiComponent.swift in Sources */,
 				50B46829246DA0E900735E8C /* RenderComponent.swift in Sources */,
 				50215E1F23A7E43B00B0C166 /* Entities.swift in Sources */,
 				505D1A6423A313B100813A05 /* MetalTypes.swift in Sources */,
