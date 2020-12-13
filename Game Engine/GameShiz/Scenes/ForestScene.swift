@@ -77,6 +77,20 @@ class ForestScene: Scene {
             try cube.add(component: RigidbodyComponent())
             try engine.addEntity(entity: cube)
             
+//            let x = engine.createEntity()
+//            try x.add(component: TransformComponent(position: SIMD3<Float>(0, 1, 0)))
+//            let mat = Material(isLit: false)
+//            try x.add(component: RenderComponent(mesh: Entities.meshes[.Case], material: mat))
+//            try engine.addEntity(entity: x)
+            
+//            let face = engine.createEntity()
+//            try face.add(component: MouseInputComponent())
+//            try face.add(component: RotatableComponent(axis: SIMD3<Float>(0, 1, 0), isMouseControlled: true))
+//            try face.add(component: TransformComponent(position: SIMD3<Float>(0, 1, 0), rotation: SIMD3<Float>(0, 2, 0), scale: SIMD3<Float>(10, 10, 10)))
+//            let mat2 = Material(isLit: false)
+//            try face.add(component: RenderComponent(mesh: Entities.meshes[.Face], textureType: .SmallHead, material: mat2))
+//            try engine.addEntity(entity: face)
+            
             let camera = engine.createEntity()
             try camera.add(component: RigidbodyComponent())
             try camera.add(component: BoundingBoxComponent(position: SIMD3<Float>(0, 0, 0), size: SIMD3<Float>(1, 2, 1)))

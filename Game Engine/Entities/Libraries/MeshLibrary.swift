@@ -22,6 +22,9 @@ enum MeshTypes {
     case FlowerYellow
     case FlowerPurple
     case Tent_Opened
+    
+    case Case
+    case Face
 }
 
 class MeshLibrary: Library<MeshTypes, Mesh> {
@@ -48,6 +51,9 @@ class MeshLibrary: Library<MeshTypes, Mesh> {
         _library.updateValue(Mesh(modelName: "flower_yellowA"), forKey: .FlowerYellow)
         _library.updateValue(Mesh(modelName: "flower_purpleA"), forKey: .FlowerPurple)
         _library.updateValue(Mesh(modelName: "tent_smallOpen"), forKey: .Tent_Opened)
+        
+        _library.updateValue(Mesh(modelName: "case", ext: "usdz"), forKey: .Case)
+        _library.updateValue(Mesh(modelName: "smallhead3", ext: "obj"), forKey: .Face)
     }
     
     override subscript(_ type: MeshTypes) -> Mesh {
@@ -69,6 +75,10 @@ class Mesh {
     
     init(modelName: String) {
         createMeshFromModel(modelName: modelName)
+    }
+    
+    init(modelName: String, ext: String) {
+        createMeshFromModel(modelName: modelName, ext: ext)
     }
     
     func createMesh() {}

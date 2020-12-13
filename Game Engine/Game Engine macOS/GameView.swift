@@ -7,9 +7,10 @@ class GameView: MTKView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
         
-        let devices = MTLCopyAllDevices()
-        
-        self.device = devices[0]
+        self.device = MTLCreateSystemDefaultDevice()
+//        let devices = MTLCopyAllDevices()
+//
+//        self.device = devices[1]
         
         Engine.ignite(device: device!)
         

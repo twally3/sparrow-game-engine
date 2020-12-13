@@ -19,7 +19,15 @@ class RigidbodySystem: System {
             let transformComponent: TransformComponent = entity.getComponent()!
             
             let force = computeGravityForce(rigidbody: rigidbodyComponent)
-            let acceleration = force / rigidbodyComponent.mass
+            rigidbodyComponent.forces.append(force)
+//            var acceleration = force / rigidbodyComponent.mass
+            var acceleration = SIMD3<Float>(0, 0, 0)
+            
+            for force in rigidbodyComponent.forces {
+                acceleration += force / rigidbodyComponent.mass
+            }
+            
+            rigidbodyComponent.forces = []
             
             let velocity = rigidbodyComponent.velocity + acceleration * deltaTime
             let position = transformComponent.position + velocity * deltaTime

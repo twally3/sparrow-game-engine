@@ -30,7 +30,11 @@ class MovableSystem: System {
             }
             
             if Keyboard.isKeyPressed(.q) {
-                transformComponent.position.y += deltaTime * 2
+                if let rigidbodyComponent = entity.getComponent(componentClass: RigidbodyComponent.self) {
+                    rigidbodyComponent.forces.append(SIMD3<Float>(0, 100, 0))
+                } else {
+                    transformComponent.position.y += deltaTime * 2
+                }
             } else if Keyboard.isKeyPressed(.e) {
                 transformComponent.position.y -= deltaTime * 2
             }
