@@ -53,7 +53,6 @@ class SandboxScene: Scene {
             try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 0, 3)))
             try camera.add(component: CameraComponent())
             try camera.add(component: MouseInputComponent())
-            try camera.add(component: KeyboardInputComponent())
             try camera.add(component: FPSCameraComponent())
             try engine.addEntity(entity: camera)
             

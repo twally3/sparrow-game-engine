@@ -14,7 +14,6 @@ class SceneManager {
         
         do {
             try engine.addSystem(system: MouseInputSystem(priority: 0))
-            try engine.addSystem(system: KeyboardInputSystem(priority: 0))
             try engine.addSystem(system: CameraSystem(priority: 0))
             try engine.addSystem(system: LightSystem(priority: 0))
             try engine.addSystem(system: SkyboxSystem(priority: 0))
