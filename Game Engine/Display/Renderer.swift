@@ -6,6 +6,7 @@ class Renderer: NSObject {
     public static var aspectRatio: Float {
         return screenSize.x / screenSize.y
     }
+    public static var engine = ViewConstraintEngine(width: screenSize.x, height: screenSize.y)
     
     init(_ mtkView: MTKView) {
         super.init()
@@ -16,6 +17,7 @@ class Renderer: NSObject {
 extension Renderer: MTKViewDelegate {
     public func updateScreenSize(view: MTKView) {
         Renderer.screenSize = SIMD2<Float>(Float(view.bounds.width), Float(view.bounds.height))
+        Renderer.engine.window.updateFrame(width: Float(view.bounds.width), height: Float(view.bounds.height))
     }
     
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {

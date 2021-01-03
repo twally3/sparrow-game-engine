@@ -11,6 +11,10 @@ enum ShaderTypes {
     // Skybox
     case SkyBox_Vertex
     case SkyBox_Fragment
+    
+    // Gui
+    case Gui_Vertex
+    case Gui_Fragment
 }
 
 class ShaderLibrary: Library<ShaderTypes, MTLFunction> {
@@ -39,6 +43,15 @@ class ShaderLibrary: Library<ShaderTypes, MTLFunction> {
         _library.updateValue(
             Shader(name: "SkyBox Fragment Shader", functionName: "skybox_fragment_shader"),
             forKey: .SkyBox_Fragment
+        )
+        
+        _library.updateValue(
+            Shader(name: "Gui Vertex Shader", functionName: "gui_vertex_shader"),
+            forKey: .Gui_Vertex
+        )
+        _library.updateValue(
+            Shader(name: "Gui Fragment Shader", functionName: "gui_fragment_shader"),
+            forKey: .Gui_Fragment
         )
     }
     

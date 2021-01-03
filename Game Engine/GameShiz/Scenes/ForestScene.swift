@@ -69,6 +69,51 @@ class ForestScene: Scene {
             try treeCs.add(component: InstancedTransformComponent(instanceCount: 1000, transformComponents: getTreeTransformComponents(count: 1000)))
             try engine.addEntity(entity: treeCs)
             
+            let box1 = View()
+            let box2 = View()
+            let box3 = View()
+            
+            let box1Entity = engine.createEntity()
+            box1.addConstraints([
+                box1.topAnchor.constraint(equalTo: Renderer.engine.window.topAnchor),
+                box1.leadingAnchor.constraint(equalTo: Renderer.engine.window.leadingAnchor),
+                box1.heightAnchor.constraint(equalToConstant: 50),
+                box1.widthAnchor.constraint(equalToConstant: 50)
+            ])
+            try box1Entity.add(component: GuiComponent(view: box1, textureType: .Heart))
+            try engine.addEntity(entity: box1Entity)
+            
+            let box2Entity = engine.createEntity()
+            box2.addConstraints([
+                box2.topAnchor.constraint(equalTo: Renderer.engine.window.topAnchor),
+                box2.leadingAnchor.constraint(equalTo: box1.trailingAnchor),
+                box2.heightAnchor.constraint(equalToConstant: 50),
+                box2.widthAnchor.constraint(equalToConstant: 50)
+            ])
+            try box2Entity.add(component: GuiComponent(view: box2, textureType: .Heart))
+            try engine.addEntity(entity: box2Entity)
+            
+            let box3Entity = engine.createEntity()
+            box3.addConstraints([
+                box3.topAnchor.constraint(equalTo: Renderer.engine.window.topAnchor),
+                box3.leadingAnchor.constraint(equalTo: box2.trailingAnchor),
+                box3.heightAnchor.constraint(equalToConstant: 50),
+                box3.widthAnchor.constraint(equalToConstant: 50)
+            ])
+            try box3Entity.add(component: GuiComponent(view: box3, textureType: .Heart))
+            try engine.addEntity(entity: box3Entity)
+            
+            let crosshair = View()
+            crosshair.addConstraints([
+                crosshair.centreXAnchor.constraint(equalTo: Renderer.engine.window.centreXAnchor),
+                crosshair.centreYAnchor.constraint(equalTo: Renderer.engine.window.centreYAnchor),
+                crosshair.widthAnchor.constraint(equalToConstant: 30),
+                crosshair.heightAnchor.constraint(equalToConstant: 30)
+            ])
+            let crosshairEntity = engine.createEntity()
+            try crosshairEntity.add(component: GuiComponent(view: crosshair, textureType: .Crosshair))
+            try engine.addEntity(entity: crosshairEntity)
+            
             let camera = engine.createEntity()
             try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 1, 3)))
             try camera.add(component: CameraComponent())

@@ -8,6 +8,9 @@ enum TextureTypes{
     
     case MetalPlate_Diff
     case MetalPlate_Normal
+    
+    case Heart
+    case Crosshair
 }
 
 class TextureLibrary: Library<TextureTypes, MTLTexture> {
@@ -21,6 +24,9 @@ class TextureLibrary: Library<TextureTypes, MTLTexture> {
         
         _library.updateValue(Texture("metal_plate_diff"), forKey: .MetalPlate_Diff)
         _library.updateValue(Texture("metal_plate_nor"), forKey: .MetalPlate_Normal)
+        
+        _library.updateValue(Texture("heart"), forKey: .Heart)
+        _library.updateValue(Texture("crosshair"), forKey: .Crosshair)
     }
     
     override subscript(_ type: TextureTypes) -> MTLTexture? {
