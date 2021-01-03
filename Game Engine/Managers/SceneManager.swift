@@ -11,7 +11,6 @@ class SceneManager {
     
     public static func initialize(_ sceneType: SceneTypes) {
         engine = ECS()
-        setScene(sceneType: sceneType)
         
         do {
             try engine.addSystem(system: MouseInputSystem(priority: 0))
@@ -31,6 +30,8 @@ class SceneManager {
         } catch let error {
             fatalError("\(error)")
         }
+        
+        setScene(sceneType: sceneType)
     }
     
     public static func setScene(sceneType: SceneTypes) {

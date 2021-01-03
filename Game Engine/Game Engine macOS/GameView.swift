@@ -9,14 +9,14 @@ class GameView: MTKView {
         
         self.device = MTLCreateSystemDefaultDevice()
         
-        Engine.ignite(device: device!)
-        
         self.clearColor = Preferences.clearColour
         self.colorPixelFormat = Preferences.mainPixelFormat
         self.depthStencilPixelFormat = Preferences.mainDepthPixelFormat
         
         self.renderer = Renderer(self)
         self.delegate = renderer
+        
+        Engine.ignite(device: device!)
     }
     
     override var acceptsFirstResponder: Bool { return true }
