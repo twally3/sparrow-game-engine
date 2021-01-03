@@ -77,32 +77,31 @@ class ForestScene: Scene {
             box1.addConstraints([
                 box1.topAnchor.constraint(equalTo: Renderer.engine.window.topAnchor),
                 box1.leadingAnchor.constraint(equalTo: Renderer.engine.window.leadingAnchor),
-                box1.trailingAnchor.constraint(equalTo: Renderer.engine.window.trailingAnchor),
-                box1.heightAnchor.constraint(equalTo: Renderer.engine.window.heightAnchor, multiplier: 0.5)
+                box1.heightAnchor.constraint(equalToConstant: 50),
+                box1.widthAnchor.constraint(equalToConstant: 50)
             ])
             try box1Entity.add(component: GuiComponent(view: box1, textureType: .Heart))
             try engine.addEntity(entity: box1Entity)
             
             let box2Entity = engine.createEntity()
             box2.addConstraints([
-                box2.topAnchor.constraint(equalTo: box1.bottomAnchor),
-                box2.leadingAnchor.constraint(equalTo: Renderer.engine.window.leadingAnchor),
-                box2.bottomAnchor.constraint(equalTo: Renderer.engine.window.bottomAnchor),
-                box2.widthAnchor.constraint(equalTo: Renderer.engine.window.widthAnchor, multiplier: 0.5)
+                box2.topAnchor.constraint(equalTo: Renderer.engine.window.topAnchor),
+                box2.leadingAnchor.constraint(equalTo: box1.trailingAnchor),
+                box2.heightAnchor.constraint(equalToConstant: 50),
+                box2.widthAnchor.constraint(equalToConstant: 50)
             ])
             try box2Entity.add(component: GuiComponent(view: box2, textureType: .Heart))
             try engine.addEntity(entity: box2Entity)
             
             let box3Entity = engine.createEntity()
             box3.addConstraints([
-                box3.topAnchor.constraint(equalTo: box1.bottomAnchor),
+                box3.topAnchor.constraint(equalTo: Renderer.engine.window.topAnchor),
                 box3.leadingAnchor.constraint(equalTo: box2.trailingAnchor),
-                box3.bottomAnchor.constraint(equalTo: Renderer.engine.window.bottomAnchor),
-                box3.trailingAnchor.constraint(equalTo: Renderer.engine.window.trailingAnchor)
+                box3.heightAnchor.constraint(equalToConstant: 50),
+                box3.widthAnchor.constraint(equalToConstant: 50)
             ])
             try box3Entity.add(component: GuiComponent(view: box3, textureType: .Heart))
             try engine.addEntity(entity: box3Entity)
-            
             
             let camera = engine.createEntity()
             try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 1, 3)))
