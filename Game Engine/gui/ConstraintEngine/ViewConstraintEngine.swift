@@ -102,6 +102,10 @@ class ViewConstraintEngine {
             return Expression(args: view.frame.width)
         case .height:
             return Expression(args: view.frame.height)
+        case .centreX:
+            return Expression(args: view.frame.minX, [Float(0.5), view.frame.width])
+        case .centreY:
+            return Expression(args: view.frame.minY, [Float(0.5), view.frame.height])
         }
     }
     

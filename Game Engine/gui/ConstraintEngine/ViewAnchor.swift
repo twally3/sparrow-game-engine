@@ -62,6 +62,8 @@ enum AnchorTypes {
     case bottom
     case width
     case height
+    case centreX
+    case centreY
 }
 
 enum AnchorRelations {

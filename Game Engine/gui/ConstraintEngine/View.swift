@@ -5,6 +5,8 @@ class View {
     var trailingAnchor: ViewXAxisAnchor!
     var widthAnchor: ViewDimensionAnchor!
     var heightAnchor: ViewDimensionAnchor!
+    var centreXAnchor: ViewXAxisAnchor!
+    var centreYAnchor: ViewYAxisAnchor!
     
     public var frame: Frame
     
@@ -27,6 +29,8 @@ class View {
         self.trailingAnchor = ViewXAxisAnchor(parent: self, anchorType: .trailing)
         self.widthAnchor = ViewDimensionAnchor(parent: self, anchorType: .width)
         self.heightAnchor = ViewDimensionAnchor(parent: self, anchorType: .height)
+        self.centreXAnchor = ViewXAxisAnchor(parent: self, anchorType: .centreX)
+        self.centreYAnchor = ViewYAxisAnchor(parent: self, anchorType: .centreY)
     }
     
     public func addConstraints(_ constraints: [ViewConstraint]) {
