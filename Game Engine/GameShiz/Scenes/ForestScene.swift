@@ -103,17 +103,16 @@ class ForestScene: Scene {
             try box3Entity.add(component: GuiComponent(view: box3, textureType: .Heart))
             try engine.addEntity(entity: box3Entity)
             
-            let box4 = View()
-            box4.addConstraints([
-                box4.centreXAnchor.constraint(equalTo: Renderer.engine.window.centreXAnchor),
-                box4.centreYAnchor.constraint(equalTo: Renderer.engine.window.centreYAnchor),
-                box4.widthAnchor.constraint(equalToConstant: 30),
-                box4.heightAnchor.constraint(equalToConstant: 30),
-//                box4.bottomAnchor.constraint(equalTo: Renderer.engine.window.bottomAnchor)
+            let crosshair = View()
+            crosshair.addConstraints([
+                crosshair.centreXAnchor.constraint(equalTo: Renderer.engine.window.centreXAnchor),
+                crosshair.centreYAnchor.constraint(equalTo: Renderer.engine.window.centreYAnchor),
+                crosshair.widthAnchor.constraint(equalToConstant: 30),
+                crosshair.heightAnchor.constraint(equalToConstant: 30)
             ])
-            let box4Entity = engine.createEntity()
-            try box4Entity.add(component: GuiComponent(view: box4, textureType: .Crosshair))
-            try engine.addEntity(entity: box4Entity)
+            let crosshairEntity = engine.createEntity()
+            try crosshairEntity.add(component: GuiComponent(view: crosshair, textureType: .Crosshair))
+            try engine.addEntity(entity: crosshairEntity)
             
             let camera = engine.createEntity()
             try camera.add(component: TransformComponent(position: SIMD3<Float>(0, 1, 3)))

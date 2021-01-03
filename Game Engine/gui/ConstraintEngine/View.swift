@@ -53,25 +53,11 @@ class View {
     
     internal func updateConstraints() {}
     
+    internal func render() {}
+    
     final func doUpdateConstraints() {
-        print("DOING UPDATE")
         self.updateConstraints()
         self._constraintsNeedUpdating = false
-    }
-    
-    func render() {
-        printElements(elements: self.frame)
-    }
-    
-    func printElements(elements: Frame...) {
-        for element in elements {
-            for (_, attr) in Mirror(reflecting: element).children.enumerated() {
-                if let propName = attr.label, let value = attr.value as? Variable {
-                    print("Attr \(value.name()): \(propName) = \(value.value())")
-                }
-            }
-            print("---")
-        }
     }
     
     func getConstraintsNeedsUpdating() -> Bool {

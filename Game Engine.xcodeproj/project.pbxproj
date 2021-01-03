@@ -244,7 +244,6 @@
 		50E05E2925A15BFC009A5529 /* ViewConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E05E2425A15BFC009A5529 /* ViewConstraint.swift */; };
 		50E05E2A25A15BFC009A5529 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E05E2525A15BFC009A5529 /* View.swift */; };
 		50E05E2B25A15BFC009A5529 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E05E2625A15BFC009A5529 /* Window.swift */; };
-		50E05E3225A15E14009A5529 /* View1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E05E3125A15E14009A5529 /* View1.swift */; };
 		50F11EC0246DEDB500E61759 /* CameraComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F11EBF246DEDB500E61759 /* CameraComponent.swift */; };
 		50F11EC2246DEEC300E61759 /* CameraSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F11EC1246DEEC300E61759 /* CameraSystem.swift */; };
 		50F11EC6246DF97800E61759 /* MouseInputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F11EC5246DF97800E61759 /* MouseInputComponent.swift */; };
@@ -413,7 +412,6 @@
 		50E05E2425A15BFC009A5529 /* ViewConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewConstraint.swift; sourceTree = "<group>"; };
 		50E05E2525A15BFC009A5529 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		50E05E2625A15BFC009A5529 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
-		50E05E3125A15E14009A5529 /* View1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View1.swift; sourceTree = "<group>"; };
 		50F11EBF246DEDB500E61759 /* CameraComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponent.swift; sourceTree = "<group>"; };
 		50F11EC1246DEEC300E61759 /* CameraSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSystem.swift; sourceTree = "<group>"; };
 		50F11EC5246DF97800E61759 /* MouseInputComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseInputComponent.swift; sourceTree = "<group>"; };
@@ -856,7 +854,6 @@
 		50BC8EB823A66979003544A5 /* GameShiz */ = {
 			isa = PBXGroup;
 			children = (
-				50E05E3025A15DFE009A5529 /* views */,
 				50B46825246D909A00735E8C /* Components */,
 				50B46822246D902B00735E8C /* Systems */,
 				50BC8ECA23A6B5C7003544A5 /* Scenes */,
@@ -927,14 +924,6 @@
 				50E05E2625A15BFC009A5529 /* Window.swift */,
 			);
 			path = ConstraintEngine;
-			sourceTree = "<group>";
-		};
-		50E05E3025A15DFE009A5529 /* views */ = {
-			isa = PBXGroup;
-			children = (
-				50E05E3125A15E14009A5529 /* View1.swift */,
-			);
-			path = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1188,7 +1177,6 @@
 			files = (
 				50E05E0F25A15BC4009A5529 /* IndexedMap.swift in Sources */,
 				50E05E2825A15BFC009A5529 /* ViewConstraintEngine.swift in Sources */,
-				50E05E3225A15E14009A5529 /* View1.swift in Sources */,
 				50B46818246D8FD900735E8C /* EntityManager.swift in Sources */,
 				501EAFB12586A61800B073CF /* GuiShaders.metal in Sources */,
 				50E05E0A25A15BC4009A5529 /* Solver.swift in Sources */,
