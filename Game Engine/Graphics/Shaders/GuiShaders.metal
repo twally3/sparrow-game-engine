@@ -9,8 +9,6 @@ struct GuiRasterizerData {
 
 vertex GuiRasterizerData gui_vertex_shader(constant float2 *vertices [[ buffer(0) ]],
                                            constant ModelConstants &modelConstants [[ buffer(1) ]],
-                                           constant float2 &viewportSize [[ buffer(2) ]],
-                                           constant float2 &imgSize [[ buffer(3) ]],
                                            uint vertexId [[ vertex_id ]]) {
     GuiRasterizerData rd;
     float2 pos = vertices[vertexId];
@@ -19,23 +17,6 @@ vertex GuiRasterizerData gui_vertex_shader(constant float2 *vertices [[ buffer(0
     rd.textureCoordinate = float2((pos.x + 1.0) / 2.0, 1 - (pos.y + 1.0) / 2.0);    
     return rd;
 }
-
-
-//vertex GuiRasterizerData gui_vertex_shader(constant float2 *vertices [[ buffer(0) ]],
-//                                           constant ModelConstants &modelConstants [[ buffer(1) ]],
-//                                           constant float2 &viewportSize [[ buffer(2) ]],
-//                                           constant float2 &imgSize [[ buffer(3) ]],
-//                                           uint vertexId [[ vertex_id ]]) {
-//    GuiRasterizerData rd;
-//    float2 pos = vertices[vertexId];
-//    pos = pos / (viewportSize / 2.0);
-//
-//    rd.position = modelConstants.modelMatrix * float4(pos, 0, 1);
-////    rd.textureCoordinate = float2((pos.x + 1.0) / 2.0, 1 - (pos.y + 1.0) / 2.0);
-//    rd.textureCoordinate = (float2(pos.x, -pos.y) + 1) / 2;
-//
-//    return rd;
-//}
 
 fragment half4 gui_fragment_shader(GuiRasterizerData rd [[ stage_in ]],
                                    sampler sampler2d [[ sampler(0) ]],
