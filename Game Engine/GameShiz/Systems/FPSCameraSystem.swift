@@ -37,7 +37,9 @@ class FPSCameraSystem: System {
             transformComponent.position += direction * fpsCameraComponent.speed * deltaTime
             
             // Mouse
-            if !mouseInputComponent.right { return }
+            #if os(macOS)
+            if !mouseInputComponent.left { return }
+            #endif
             let mouseDelta = SIMD2<Float>(x: mouseInputComponent.dx, y: mouseInputComponent.dy)
 
             transformComponent.rotation.y += fpsCameraComponent.mouseXSensitivity * mouseDelta.x * deltaTime

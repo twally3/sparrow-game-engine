@@ -220,6 +220,8 @@
 		50B3B60E25A28AD8002FC139 /* CollisionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508F0B0D2470925000121CD3 /* CollisionSystem.swift */; };
 		50B3B60F25A28AD8002FC139 /* GuiSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501EAFA42586A56800B073CF /* GuiSystem.swift */; };
 		50B3B61425A28B06002FC139 /* GuiShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 501EAFB02586A61800B073CF /* GuiShaders.metal */; };
+		50B3B61A25A2904B002FC139 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3B61925A2904B002FC139 /* MouseController.swift */; };
+		50B3B61B25A2904B002FC139 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B3B61925A2904B002FC139 /* MouseController.swift */; };
 		50B46811246D8FD900735E8C /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B46808246D8FD800735E8C /* System.swift */; };
 		50B46812246D8FD900735E8C /* FamilyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B46809246D8FD800735E8C /* FamilyManager.swift */; };
 		50B46813246D8FD900735E8C /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B4680A246D8FD800735E8C /* Component.swift */; };
@@ -387,6 +389,7 @@
 		50B3B5AE25A27F20002FC139 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		50B3B5BC25A28433002FC139 /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
 		50B3B5D325A289BD002FC139 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		50B3B61925A2904B002FC139 /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
 		50B46808246D8FD800735E8C /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		50B46809246D8FD800735E8C /* FamilyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyManager.swift; sourceTree = "<group>"; };
 		50B4680A246D8FD800735E8C /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
@@ -682,6 +685,7 @@
 			children = (
 				5067174D23A6CC5700C31239 /* Mouse.swift */,
 				50B3B5BC25A28433002FC139 /* KeyboardController.swift */,
+				50B3B61925A2904B002FC139 /* MouseController.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -1257,6 +1261,7 @@
 				50B46814246D8FD900735E8C /* Entity.swift in Sources */,
 				508F0AEF24701FED00121CD3 /* SkyBoxShaders.metal in Sources */,
 				50E05E0B25A15BC4009A5529 /* Strength.swift in Sources */,
+				50B3B61A25A2904B002FC139 /* MouseController.swift in Sources */,
 				50E05E2A25A15BFC009A5529 /* View.swift in Sources */,
 				50BC8EC923A6AAF9003544A5 /* Maths.swift in Sources */,
 				50215E1D23A7E42B00B0C166 /* Graphics.swift in Sources */,
@@ -1309,6 +1314,7 @@
 				508F0AA0247013E600121CD3 /* Graphics.swift in Sources */,
 				508F0ADF2470147500121CD3 /* System.swift in Sources */,
 				508F0ABA2470144100121CD3 /* RenderPipelineStateLibrary.swift in Sources */,
+				50B3B61B25A2904B002FC139 /* MouseController.swift in Sources */,
 				50B3B5F925A28ABB002FC139 /* MovableComponent.swift in Sources */,
 				50B3B5BE25A28433002FC139 /* KeyboardController.swift in Sources */,
 				50B3B60025A28ACA002FC139 /* Expression.swift in Sources */,
