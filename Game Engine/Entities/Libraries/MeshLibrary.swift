@@ -62,6 +62,10 @@ class Mesh {
     private var _instanceCount: Int = 1
     private var _submeshes: [Submesh] = []
     
+    public private(set) var minBound: SIMD3<Float> = SIMD3<Float>(0, 0, 0)
+    public private(set) var maxBound: SIMD3<Float> = SIMD3<Float>(0, 0, 0)
+    
+    
     init() {
         createMesh()
         createBuffer()
@@ -136,6 +140,9 @@ class Mesh {
             let submesh = Submesh(mtkSubmesh: mtkSubmesh, mdlSubmesh: mdlSubmesh)
             addSubmesh(submesh)
         }
+        
+        self.minBound = mdlMesh.boundingBox.minBounds
+        self.maxBound = mdlMesh.boundingBox.maxBounds
     }
     
     func setInstanceCount(_ count: Int) {

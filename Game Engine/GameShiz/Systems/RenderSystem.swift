@@ -11,7 +11,25 @@ class RenderSystem: System {
         self.priority = priority
     }
     
-    func update(deltaTime: Float) {}
+    func update(deltaTime: Float) {
+        let cameras = engine.getEntities(for: Family.all(components: CameraComponent.self))
+        let camera = cameras[0]
+        let cameraComp = camera.getComponent(componentClass: CameraComponent.self)!
+        
+        for entity in entities {
+            guard let boundingBoxComp = entity.getComponent(componentClass: BoundingBoxComponent.self) else { continue }
+            let transformComp = entity.getComponent(componentClass: TransformComponent.self)!
+            
+            let relativeScale = boundingBoxComp.size * transformComp.scale
+            let origin = boundingBoxComp.position + transformComp.position
+            
+            let radius = length(relativeScale / 2)
+            
+            transformComp.isInFrustum = cameraComp.frustum.sphereIntersection(center: origin, radius: radius)
+            
+//            print(transformComp.isInFrustum)
+        }
+    }
     
     func render(renderCommandEncoder: MTLRenderCommandEncoder) {
         renderCommandEncoder.setRenderPipelineState(Graphics.renderPipelineStates[.Basic])
@@ -20,6 +38,8 @@ class RenderSystem: System {
         for entity in entities {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
             let renderComponent = entity.getComponent(componentClass: RenderComponent.self)!
+            
+            if !transformComponent.isInFrustum { continue }
             
             var modelConstants = ModelConstants(modelMatrix: transformComponent.modelMatrix)
             renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)

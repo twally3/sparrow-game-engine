@@ -31,6 +31,9 @@ class CameraSystem: System {
                                                                            aspectRatio: Renderer.aspectRatio,
                                                                            near: cameraComponent.near,
                                                                            far: cameraComponent.far)
+            
+            let pvMatrix = matrix_multiply(cameraComponent.projectionMatrix, cameraComponent.viewMatrix)
+            cameraComponent.frustum.update(pvMatrix: pvMatrix)
         }
     }
     

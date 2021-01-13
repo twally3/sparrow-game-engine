@@ -7,4 +7,6 @@ class CameraComponent: Component {
     public var degreesFov: Float = 45
     public var near: Float = 0.1
     public var far: Float = 1000
+    
+    public var frustum: Frustum = Frustum()
 }

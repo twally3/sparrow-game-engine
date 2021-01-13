@@ -16,5 +16,5 @@ class Preferences {
     
     public static var mainDepthPixelFormat: MTLPixelFormat = MTLPixelFormat.depth32Float
     
-    public static var startingSceneType: SceneTypes = .Forest
+    public static var startingSceneType: SceneTypes = .Debug
 }

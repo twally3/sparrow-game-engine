@@ -6,6 +6,7 @@ class TransformComponent: Component {
     private var _rotation: SIMD3<Float>
     
     public var modelMatrix: matrix_float4x4 = matrix_identity_float4x4
+    public var isInFrustum: Bool = true
     
     public var position: SIMD3<Float> {
         get { _position }
