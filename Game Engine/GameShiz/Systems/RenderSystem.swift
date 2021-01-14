@@ -27,7 +27,7 @@ class RenderSystem: System {
             
             transformComp.isInFrustum = cameraComp.frustum.sphereIntersection(center: origin, radius: radius)
             
-//            print(transformComp.isInFrustum)
+            print(transformComp.isInFrustum)
         }
     }
     

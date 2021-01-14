@@ -33,20 +33,22 @@ class DebugScene: Scene {
             try engine.addEntity(entity: terrain)
             
             let tent = engine.createEntity()
-            try tent.add(component: TransformComponent(position: SIMD3<Float>(repeating: 0),
+            try tent.add(component: TransformComponent(position: SIMD3<Float>(20, 0, 30),
                                                        rotation: SIMD3<Float>(0, 0, 0),
                                                        scale: SIMD3<Float>(repeating: 1)))
+//            try tent.add(component: MovableComponent())
             try tent.add(component: RenderComponent(mesh: Entities.meshes[.Tent_Opened]))
             try tent.add(component: BoundingBoxComponent.fromBounds(min: Entities.meshes[.Tent_Opened].minBound,
                                                                     max: Entities.meshes[.Tent_Opened].maxBound))
-            try engine.addEntity(entity: tent)
+//            try engine.addEntity(entity: tent)
             
             let treeAs = engine.createEntity()
             try treeAs.add(component: RenderComponent(mesh: Entities.meshes[.TreePineA]))
-            let count = 100
-            try treeAs.add(component: InstancedTransformComponent(instanceCount: count, transformComponents: getTreeTransformComponents(count: count)))
-//            try treeAs.add(component: BoundingBoxComponent.fromBounds(min: Entities.meshes[.TreePineA].minBound,
-//                                                                      max: Entities.meshes[.TreePineA].maxBound))
+            let treeAsCount = 1000
+            try treeAs.add(component: InstancedTransformComponent(instanceCount: treeAsCount,
+                                                                  transformComponents: getTreeTransformComponents(count: treeAsCount)))
+            try treeAs.add(component: BoundingBoxComponent.fromBounds(min: Entities.meshes[.TreePineA].minBound,
+                                                                      max: Entities.meshes[.TreePineA].maxBound))
             try engine.addEntity(entity: treeAs)
 
             
@@ -67,12 +69,13 @@ class DebugScene: Scene {
         var transformComponents = [TransformComponent]()
         
         for i in 0..<count {
-            let radius: Float = 70 //Float.random(in: 8...70)
+            let radius: Float = Float.random(in: 8...70)
+//            let radius: Float = 10
             let pos = SIMD3<Float>(cos(Float(i)) * radius, 0, sin(Float(i)) * radius)
-//            let rot = SIMD3<Float>(0, Float.random(in: 0...360), 0)
-            let rot = SIMD3<Float>(0, 0, 0)
-//            let scale = SIMD3<Float>(repeating: Float.random(in: 1...2))
-            let scale = SIMD3<Float>(repeating: 1)
+            let rot = SIMD3<Float>(0, Float.random(in: 0...360), 0)
+//            let rot = SIMD3<Float>(0, 0, 0)
+            let scale = SIMD3<Float>(repeating: Float.random(in: 1...2))
+//            let scale = SIMD3<Float>(repeating: 1)
             
             transformComponents.append(TransformComponent(position: pos,
                                                           rotation: rot,

@@ -41,6 +41,9 @@ class CollisionSystem: System {
     
     let family = Family.all(components: TransformComponent.self, BoundingBoxComponent.self)
     
+    var instancedEntities = [Entity]()
+    let instancedFamily = Family.all(components: InstancedTransformComponent.self, BoundingBoxComponent.self)
+    
     var boxes = ContiguousArray<Box>()
     
     // TODO: Reset me when the list changes
@@ -122,6 +125,32 @@ class CollisionSystem: System {
             mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
                                 material: material)
         }
+        
+//        for entity in instancedEntities {
+//            let instancedTransformComponent = entity.getComponent(componentClass: InstancedTransformComponent.self)!
+//            let boundingBoxComponent = entity.getComponent(componentClass: BoundingBoxComponent.self)!
+//            
+//            for transformComponent in instancedTransformComponent.transformComponents {
+//                let material = Material(colour: SIMD4<Float>(0, 1, 0, 1),
+//                                        isLit: true,
+//                                        ambient: SIMD3<Float>(repeating: 0.1),
+//                                        diffuse: SIMD3<Float>(repeating: 1),
+//                                        specular: SIMD3<Float>(repeating: 1),
+//                                        shininess: 2)
+//                
+//                let mesh = Entities.meshes[.Cube_Custom]
+//                
+//                var modelMatrix = matrix_identity_float4x4
+//                modelMatrix.translate(direction: transformComponent.position + boundingBoxComponent.position)
+//                modelMatrix.scale(axis: boundingBoxComponent.size * transformComponent.scale * 1.001)
+//                
+//                var modelConstants = ModelConstants(modelMatrix: modelMatrix)
+//                renderCommandEncoder.setVertexBytes(&modelConstants, length: ModelConstants.stride, index: 2)
+//                renderCommandEncoder.setTriangleFillMode(.lines)
+//                mesh.drawPrimitives(renderCommandEncoder: renderCommandEncoder,
+//                                    material: material)
+//            }
+//        }
     }
     
     func onEntityAdded(entity: Entity) {
@@ -129,10 +158,14 @@ class CollisionSystem: System {
             self.entities = engine.getEntities(for: family)
             setList()
         }
+        
+        if instancedFamily.matches(entity: entity) {
+            self.instancedEntities = engine.getEntities(for: instancedFamily)
+        }
     }
     
     func onEntityRemoved(entity: Entity) {
-        if !family.matches(entity: entity) {
+        if family.matches(entity: entity) {
             self.entities = engine.getEntities(for: family)
             setList()
         }
@@ -141,6 +174,8 @@ class CollisionSystem: System {
     func onAddedToEngine(engine: ECS) {
         self.entities = engine.getEntities(for: family)
         self.engine = engine
+        
+        self.instancedEntities = engine.getEntities(for: instancedFamily)
         
         setList()
     }
