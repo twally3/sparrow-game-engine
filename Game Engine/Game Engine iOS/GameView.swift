@@ -21,5 +21,14 @@ class GameView: MTKView {
 
         self.renderer = Renderer(self)
         self.delegate = renderer
+        
+        self.addInteraction(UIPointerInteraction(delegate: self))
+    }
+}
+
+extension GameView : UIPointerInteractionDelegate {
+    func pointerInteraction(_ interaction: UIPointerInteraction, regionFor request: UIPointerRegionRequest, defaultRegion: UIPointerRegion) -> UIPointerRegion? {
+        MouseController.setOverallPosition(position: SIMD2<Float>(Float(request.location.x), Float(request.location.y)))
+        return defaultRegion
     }
 }

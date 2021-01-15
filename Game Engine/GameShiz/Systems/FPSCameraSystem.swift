@@ -5,7 +5,7 @@ class FPSCameraSystem: System {
     var entities: [Entity] = []
     var engine: ECS!
     
-    let family = Family.all(components: TransformComponent.self, CameraComponent.self, MouseInputComponent.self, KeyboardInputComponent.self, FPSCameraComponent.self)
+    let family = Family.all(components: TransformComponent.self, CameraComponent.self, MouseInputComponent.self, FPSCameraComponent.self)
     
     init(priority: Int) {
         self.priority = priority
@@ -16,18 +16,17 @@ class FPSCameraSystem: System {
             let transformComponent = entitiy.getComponent(componentClass: TransformComponent.self)!
             let cameraComponent = entitiy.getComponent(componentClass: CameraComponent.self)!
             let mouseInputComponent = entitiy.getComponent(componentClass: MouseInputComponent.self)!
-            let keyboardInputComponent = entitiy.getComponent(componentClass: KeyboardInputComponent.self)!
             let fpsCameraComponent = entitiy.getComponent(componentClass: FPSCameraComponent.self)!
                         
             // Keyboard
             var dx: Float = 0
             var dz: Float = 0
             
-            if keyboardInputComponent.w { dz = 2 }
-            else if keyboardInputComponent.s { dz = -2 }
+            if KeyboardController.isPressed(keyCode: .keyW) { dz = 2 }
+            else if KeyboardController.isPressed(keyCode: .keyS) { dz = -2 }
             
-            if keyboardInputComponent.d { dx = 2 }
-            else if keyboardInputComponent.a { dx = -2 }
+            if KeyboardController.isPressed(keyCode: .keyD) { dx = 2 }
+            else if KeyboardController.isPressed(keyCode: .keyA) { dx = -2 }
 
             let mat = cameraComponent.viewMatrix
 
@@ -38,7 +37,9 @@ class FPSCameraSystem: System {
             transformComponent.position += direction * fpsCameraComponent.speed * deltaTime
             
             // Mouse
-            if !mouseInputComponent.right { return }
+            #if os(macOS)
+            if !mouseInputComponent.left { return }
+            #endif
             let mouseDelta = SIMD2<Float>(x: mouseInputComponent.dx, y: mouseInputComponent.dy)
 
             transformComponent.rotation.y += fpsCameraComponent.mouseXSensitivity * mouseDelta.x * deltaTime

@@ -17,21 +17,21 @@ class MovableSystem: System {
         for entity in entities {
             let transformComponent = entity.getComponent(componentClass: TransformComponent.self)!
             
-            if Keyboard.isKeyPressed(.upArrow) {
+            if KeyboardController.isPressed(keyCode: .upArrow) {
                 transformComponent.position.z -= deltaTime * 2
-            } else if Keyboard.isKeyPressed(.downArrow) {
+            } else if KeyboardController.isPressed(keyCode: .downArrow) {
                 transformComponent.position.z += deltaTime * 2
             }
             
-            if Keyboard.isKeyPressed(.leftArrow) {
+            if KeyboardController.isPressed(keyCode: .leftArrow) {
                 transformComponent.position.x -= deltaTime * 2
-            } else if Keyboard.isKeyPressed(.rightArrow) {
+            } else if KeyboardController.isPressed(keyCode: .rightArrow) {
                 transformComponent.position.x += deltaTime * 2
             }
             
-            if Keyboard.isKeyPressed(.q) {
+            if KeyboardController.isPressed(keyCode: .keyQ) {
                 transformComponent.position.y += deltaTime * 2
-            } else if Keyboard.isKeyPressed(.e) {
+            } else if KeyboardController.isPressed(keyCode: .keyE) {
                 transformComponent.position.y -= deltaTime * 2
             }
             
